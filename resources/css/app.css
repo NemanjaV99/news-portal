@@ -1,0 +1,222 @@
+/**
+* CONTENTS
+*
+* BASE
+* Reset
+* Main
+*
+* TYPOGRAPHY
+* Heading
+* Text
+* Link
+*
+* COMPONENTS
+* Header 
+* Footer
+* Section
+* News Article
+*
+*/
+
+/*----------*** BASE ***----------------*/
+
+/*--------------------------------*\
+    #RESET
+\*--------------------------------*/
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/*--------------------------------*\
+    #MAIN
+\*--------------------------------*/
+.main {
+
+	padding: 30px 25px;
+}
+
+/*----------*** END OF BASE ***----------------*/
+
+
+/*----------*** TYPOGRAPHY ***----------------*/
+
+/*--------------------------------*\
+    #HEADING
+\*--------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+
+	font-family: 'Roboto', sans-serif;
+}
+
+/*--------------------------------*\
+    #TEXT
+\*--------------------------------*/
+.text {
+
+	font-family: 'Open Sans', sans-serif;
+}
+
+.text--small {
+
+	font-size: 14px;
+}
+
+.text--large {
+
+	font-size: 18px;
+}
+
+/*--------------------------------*\
+    #LINK
+\*--------------------------------*/
+.link,
+.link:active,
+.link:hover,
+.link:visited {
+
+	color: #fff;
+	text-decoration: none;
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+/*----------*** END OF TYPOGRAPHY ***----------------*/
+
+
+/*----------*** COMPONENTS ***----------------*/
+
+/*--------------------------------*\
+    #HEADER
+\*--------------------------------*/
+
+.header {
+
+	background-color: rgb(22, 107, 141);
+	height: 60px;
+	padding: 0 10px;
+	display: flex!important;
+	justify-content: space-between;
+	align-items: center;
+}
+
+	.header__link {
+
+		font-size: 14px;
+	}
+
+/*--------------------------------*\
+    #FOOTER
+\*--------------------------------*/
+
+.footer {
+
+	background-color: rgb(22, 107, 141);
+	height: 50px;
+	line-height: 50px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	text-align: center;
+}
+
+	.footer__copyright {
+
+		color: #fff;
+	}
+
+/*--------------------------------*\
+    #SECTION
+\*--------------------------------*/
+
+.section__title {
+
+	font-size: 28px;
+	margin-bottom: 10px;
+}
+
+/*--------------------------------*\
+    #NEWS ARTICLE
+\*--------------------------------*/
+
+.news-article {
+
+	margin: 10px 0 25px 0;
+	width: 70%;
+}
+
+	.news-article__title {
+
+		font-size: 20px;
+	}
+
+	.news-article__text {
+
+		margin: 10px 0;
+	}
+
+	.news-article__info {
+		
+	}
+
+		.news-article__author {
+
+			font-size: 14px;
+			margin-right: 15px;
+		}
+
+		.news-article__time {
+
+			font-size: 14px;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+/*----------*** END OF COMPONENTS ***----------------*/
