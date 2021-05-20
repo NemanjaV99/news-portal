@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,22 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-// news-portal
-// news-portal/category/sport
-// news-portal/article/a8g8g8xcxvmnnzc - news article
+//require __DIR__.'/auth.php';
+// Auth routes
+Route::get('/register', [RegisteredUserController::class, 'create'])
+                ->middleware('guest')
+                ->name('register');
+
+Route::post('/register', [RegisteredUserController::class, 'store'])
+                ->middleware('guest');
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+                ->middleware('guest')
+                ->name('login');
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+                ->middleware('guest');
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('logout');                
