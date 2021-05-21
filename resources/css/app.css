@@ -15,10 +15,20 @@
 * Footer
 * Section
 * News Article
+* Form
+* Button
+*
+* PAGES
+* Login 
 *
 */
 
 /*----------*** BASE ***----------------*/
+
+body {
+
+	background-color: rgb(245, 245, 245);
+}
 
 /*--------------------------------*\
     #RESET
@@ -72,7 +82,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
 
 /*--------------------------------*\
     #MAIN
@@ -183,6 +192,11 @@ h1, h2, h3, h4, h5, h6 {
 	margin-bottom: 10px;
 }
 
+.section__title--center {
+
+	text-align: center;
+}
+
 /*--------------------------------*\
     #NEWS ARTICLE
 \*--------------------------------*/
@@ -218,5 +232,80 @@ h1, h2, h3, h4, h5, h6 {
 			font-size: 14px;
 			font-family: 'Open Sans', sans-serif;
 		}
+		
+/*--------------------------------*\
+    #FORM
+\*--------------------------------*/
+
+.form {
+
+	background-color: rgb(255, 255, 255);
+	padding: 30px 15px;
+	width: 50%;
+	margin: 50px auto;
+	border-radius: 10px;
+	text-align: center;
+}
+
+	.form__field {
+
+		display: block;
+		border: 1px solid rgb(204, 204, 204);
+		padding: 5px 10px;
+		margin: 0 auto 20px auto;
+		width: 40%;
+	}
+
+	.form__field:focus-visible {
+
+		outline: none;
+	}
+
+	.form__label {
+
+		display: block;
+		font-family: 'Open Sans', sans-serif;
+		margin-bottom: 5px;
+	}
+
+	.form__submit {
+
+		display: block;
+		margin: 0 auto 20px auto;
+	}
+
+	.form__link {
+
+		color: rgb(0, 0, 238);
+	}
+
+	.form__link:active,
+	.form__link:visited,
+	.form__link:hover {
+
+		color:rgb(3, 3, 140);
+	}
+
+/*--------------------------------*\
+    #BUTTON
+\*--------------------------------*/
+
+.button {
+
+	background: none;
+	border: 2px solid rgb(200, 200, 200);
+	font-family: 'Roboto', sans-serif;
+	font-size: 15px;
+	padding: 5px 18px;
+	border-radius: 2px;
+	transition: all .5s;
+	cursor: pointer;
+}
+
+.button:hover {
+
+	background-color: rgb(200, 200, 200);
+	color: #fff;
+}
 
 /*----------*** END OF COMPONENTS ***----------------*/
