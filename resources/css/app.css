@@ -161,6 +161,12 @@ h1, h2, h3, h4, h5, h6 {
 		font-size: 14px;
 	}
 
+	.header__profile {
+
+		color: #fff;
+		font-family: 'Roboto', sans-serif;
+	}
+
 /*--------------------------------*\
     #FOOTER
 \*--------------------------------*/
@@ -261,6 +267,12 @@ h1, h2, h3, h4, h5, h6 {
 		outline: none;
 	}
 
+	.form__field--invalid {
+
+		margin: 0 auto 5px auto;
+		border: 1px solid rgb(180, 0, 0);
+	}
+
 	.form__label {
 
 		display: block;
@@ -284,6 +296,14 @@ h1, h2, h3, h4, h5, h6 {
 	.form__link:hover {
 
 		color:rgb(3, 3, 140);
+	}
+
+	.form__error {
+
+		color: rgb(180, 0, 0);
+		font-family: 'Open Sans', sans-serif;
+		font-size: 14px;
+		margin-bottom: 15px;
 	}
 
 /*--------------------------------*\

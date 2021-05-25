@@ -19,10 +19,17 @@
     --}}
 
     <!-- User options / Sign-in, Log-in options -->
-    <div class="header__user">
-        <div class="header__auth">
-            <a class="header__link link" href="/login">Sign In</a>
-        </div>
+    <div class="header__auth">
+        @guest
+            <div class="header__sign-in">
+                <a class="header__link link" href="/login">Sign In</a>
+            </div>
+        @endguest
+        @auth
+            <div class="header__profile">
+                {{Auth::user()->first_name . ' ' . Auth::user()->last_name}}
+            </div>
+        @endauth
     </div>
 
 </header>
