@@ -27,7 +27,9 @@
         @endguest
         @auth
             <div class="header__profile">
-                {{Auth::user()->first_name . ' ' . Auth::user()->last_name}}
+                {!! Form::open(['route' => 'logout']) !!}
+                {!! Form::submit('Log Out', ['class' => 'link link--button']) !!}
+                {!! Form::close() !!}
             </div>
         @endauth
     </div>
