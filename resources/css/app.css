@@ -17,6 +17,7 @@
 * News Article
 * Form
 * Button
+* Dropdown
 *
 * PAGES
 * Login 
@@ -157,21 +158,31 @@ h1, h2, h3, h4, h5, h6 {
 
 	background-color: rgb(22, 107, 141);
 	height: 60px;
-	padding: 0 10px;
+	line-height: 60px;
 	display: flex!important;
 	justify-content: space-between;
 	align-items: center;
 }
+
+	.header__logo {
+
+		line-height: normal;
+		padding-left: 10px;
+	}
 
 	.header__link {
 
 		font-size: 14px;
 	}
 
-	.header__profile {
+	.header__auth {
 
-		color: #fff;
-		font-family: 'Roboto', sans-serif;
+		padding-right: 10px;
+	}
+
+	.header__dropdown {
+
+		height: 100%;
 	}
 
 /*--------------------------------*\
@@ -218,6 +229,7 @@ h1, h2, h3, h4, h5, h6 {
 
 	margin: 10px 0 25px 0;
 	width: 70%;
+	font-family: 'Open Sans', sans-serif;
 }
 
 	.news-article__title {
@@ -243,7 +255,6 @@ h1, h2, h3, h4, h5, h6 {
 		.news-article__time {
 
 			font-size: 14px;
-			font-family: 'Open Sans', sans-serif;
 		}
 		
 /*--------------------------------*\
@@ -258,6 +269,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 50px auto;
 	border-radius: 10px;
 	text-align: center;
+	font-family: 'Open Sans', sans-serif;
 }
 
 	.form__field {
@@ -283,7 +295,6 @@ h1, h2, h3, h4, h5, h6 {
 	.form__label {
 
 		display: block;
-		font-family: 'Open Sans', sans-serif;
 		margin-bottom: 5px;
 	}
 
@@ -308,7 +319,6 @@ h1, h2, h3, h4, h5, h6 {
 	.form__error {
 
 		color: rgb(180, 0, 0);
-		font-family: 'Open Sans', sans-serif;
 		font-size: 14px;
 		margin-bottom: 15px;
 	}
@@ -334,5 +344,87 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: rgb(200, 200, 200);
 	color: #fff;
 }
+
+/*--------------------------------*\
+    #DROPDOWN
+\*--------------------------------*/
+
+.dropdown {
+
+	position: relative;
+	display: inline-block;
+	font-family: 'Roboto', sans-serif;
+	transition: all .5s;
+}
+
+.dropdown:hover {
+
+	background-color: rgba(255, 255, 255, 0.2);	
+}
+
+	.dropdown__content {
+
+		display: none;
+		position: absolute;
+		background-color: #f1f1f1;
+		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+		z-index: 1;
+		line-height: normal;
+		width: 100%;
+	}
+
+	.dropdown__content--show {
+
+		display: block;
+	}
+
+	.dropdown__item {
+
+		color: #000;
+  		padding: 12px 16px;
+  		text-decoration: none;
+  		display: block;
+	}
+
+	.dropdown__item--btn {
+
+		border: none;
+		background: none;
+		font-family: 'Roboto', sans-serif;
+		font-size: 16px;
+		cursor: pointer;
+		width: 100%;
+		text-align: left;
+	}
+
+	.dropdown__item:hover {
+
+		background-color: #ddd;
+	}
+
+	.dropdown__button {
+
+		cursor: pointer;
+		height: 100%;
+		padding: 0 10px;
+	}
+
+	.dropdown__button--light {
+
+		color: #fff;
+	}
+
+	.dropdown__caret {
+
+		line-height: inherit;
+		margin-left: 2px;
+		display: inline-block;
+	}
+
+	/* Show dropdown on hover */
+	.dropdown:hover .dropdown__content {
+
+		display: block;
+	}
 
 /*----------*** END OF COMPONENTS ***----------------*/
