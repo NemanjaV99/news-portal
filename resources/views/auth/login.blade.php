@@ -39,6 +39,6 @@
 
     </main>
 
-    @include('layouts.partials.footer')
+    {{-- @include('layouts.partials.footer') --}}
 
 @endsection

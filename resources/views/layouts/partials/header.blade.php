@@ -2,7 +2,7 @@
     
     <!-- Logo -->
     <div class="header__logo">
-        <img class="header__img" src="{{asset('assets/images/logo.png')}}" alt="News Logo">
+        <a href="{{route('home.index')}}"><img class="header__img" src="{{asset('assets/images/logo.png')}}" alt="News Logo"></a>
     </div>
 
     {{--
@@ -32,8 +32,10 @@
                     <i class="fas fa-sort-down dropdown__caret"></i>
                 </div>
                 <div class="dropdown__content">
-                    {{-- <a class="dropdown__item" href="">My Account</a>
-                    <a class="dropdown__item" href="">Editor Hub</a> --}}
+                    {{-- <a class="dropdown__item" href="">My Account</a> --}}
+                    @can('access-editor-pages')
+                        <a class="dropdown__item" href="{{route('article.create_form')}}">New Article</a>
+                    @endcan
                     {!! Form::open(['route' => 'logout']) !!}
                         {!! Form::submit('Log Out', ['class' => 'dropdown__item dropdown__item--btn']) !!}
                     {!! Form::close() !!}

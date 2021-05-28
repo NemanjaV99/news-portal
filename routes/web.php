@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -18,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-//require __DIR__.'/auth.php';
-// Auth routes
+
+// --- Auth routes -- //
+
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
                 ->name('register.form');
@@ -39,3 +41,12 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');                
+
+// -- Article routes -- //
+
+Route::get('/article/create', [ArticleController::class, 'create'])
+    ->name('article.create_form');
+
+Route::post('/article', [ArticleController::class, 'store'])
+    ->name('article.store');
+

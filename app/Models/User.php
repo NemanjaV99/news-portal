@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\UserRole;
 
 class User extends Authenticatable
 {
@@ -41,6 +42,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    private $roles = [
+        'USER' => 1,
+        'EDITOR' => 2,
+        'ADMIN' => 3,
+    ];
+
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'role');
+    }
     
     /**
      * Create a full user name
@@ -50,5 +62,14 @@ class User extends Authenticatable
     public function fullName()
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * Determine if a user is an editor / has the editor role (2)
+     * 
+     */
+    public function isEditor()
+    {
+        return $this->role()->where('id', $this->roles['EDITOR'])->exists();
     }
 }
