@@ -4,6 +4,7 @@
 * BASE
 * Reset
 * Main
+* Library overwrites
 *
 * TYPOGRAPHY
 * Heading
@@ -90,6 +91,65 @@ table {
 .main {
 
 	padding: 30px 25px;
+	min-height: 100vh;
+}
+
+/*--------------------------------*\
+    #LIBRARY OVERWRITES
+\*--------------------------------*/
+
+/* CKEDITOR5 */
+.ck-editor__editable {
+
+	height: 300px;
+}
+
+.ck-editor__editable strong {
+
+	font-weight: bold;
+}
+
+.ck-editor__editable i {
+
+	font-style: italic;
+}
+
+.ck-editor__editable h2 {
+
+	font-size: 24px;
+}
+
+.ck-editor__editable h3 {
+
+	font-size: 22px;
+}
+
+.ck-editor__editable h4 {
+
+	font-size: 20px;
+}
+
+.ck-editor__editable ul,
+.ck-editor__editable ol {
+
+	padding-left: 30px;
+	margin: 15px 0;
+}
+
+.ck-editor__editable ul {
+
+	list-style-type: disc;
+}
+
+.ck-editor__editable ol {
+
+	list-style-type: decimal;
+}
+
+.ck-editor__editable blockquote,
+.ck-editor__editable q {
+
+	color: rgb(30, 30, 30);
 }
 
 /*----------*** END OF BASE ***----------------*/
@@ -269,31 +329,36 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Open Sans', sans-serif;
 }
 
-	.form__field {
+	.form__group {
 
-		display: block;
-		border: 1px solid rgb(204, 204, 204);
-		padding: 5px 10px;
-		margin: 0 auto 20px auto;
-		width: 40%;
+		margin-bottom: 20px;
 	}
 
-	.form__field:focus-visible {
+		.form__field {
 
-		outline: none;
-	}
+			display: block;
+			border: 1px solid rgb(204, 204, 204);
+			padding: 5px 10px;
+			margin: 0 auto;
+			width: 40%;
+		}
 
-	.form__field--invalid {
+		.form__field:focus-visible {
 
-		margin: 0 auto 5px auto;
-		border: 1px solid rgb(180, 0, 0);
-	}
+			outline: none;
+		}
 
-	.form__label {
+		.form__field--invalid {
 
-		display: block;
-		margin-bottom: 5px;
-	}
+			margin: 0 auto 5px auto;
+			border: 1px solid rgb(180, 0, 0);
+		}
+
+		.form__label {
+
+			display: block;
+			margin-bottom: 5px;
+		}
 
 	.form__submit {
 

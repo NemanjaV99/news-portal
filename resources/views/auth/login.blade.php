@@ -12,23 +12,29 @@
 
             {!! Form::open(['route' => 'login.process', 'class' => 'form login-form']) !!}
 
-            {!! Form::label('email', 'Email Adress', ['class' => 'form__label']) !!}
-            {!! Form::email('email', null, ['class' => 'form__field' . ($errors->has('email') ? ' form__field--invalid' : null)]) !!}
-            @error('email')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('email', 'Email Adress', ['class' => 'form__label']) !!}
+                {!! Form::email('email', null, ['class' => 'form__field' . ($errors->has('email') ? ' form__field--invalid' : null)]) !!}
+                @error('email')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::label('password', 'Password', ['class' => 'form__label']) !!}
-            {!! Form::password('password', ['class' => 'form__field' . ($errors->has('password') ? ' form__field--invalid' : null)]) !!}
-            @error('password')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('password', 'Password', ['class' => 'form__label']) !!}
+                {!! Form::password('password', ['class' => 'form__field' . ($errors->has('password') ? ' form__field--invalid' : null)]) !!}
+                @error('password')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::submit('Login', ['class' => 'button form__submit']) !!}
+            <div class="form__group">
+                {!! Form::submit('Login', ['class' => 'button form__submit']) !!}
+            </div>
 
             <a class='form__link link' href="{{route('register.form')}}">Don't have an account? Create one now.</a>
 
@@ -39,6 +45,6 @@
 
     </main>
 
-    {{-- @include('layouts.partials.footer') --}}
+    @include('layouts.partials.footer')
 
 @endsection

@@ -14,31 +14,39 @@
 
             {!! Form::open(['route' => 'article.store', 'class' => 'form']) !!}
 
-            {!! Form::label('title', 'Title', ['class' => 'form__label']) !!}
-            {!! Form::text('title', null, ['class' => 'form__field' . ($errors->has('title') ? ' form__field--invalid' : null)]) !!}
-            @error('title')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('title', 'Title', ['class' => 'form__label']) !!}
+                {!! Form::text('title', null, ['class' => 'form__field' . ($errors->has('title') ? ' form__field--invalid' : null)]) !!}
+                @error('title')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::label('text', 'Text', ['class' => 'form__label']) !!}
-            {!! Form::textarea('text', null, ['class' => 'form__field' . ($errors->has('text') ? ' form__field--invalid' : null)]) !!}
-            @error('text')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('text', 'Text', ['class' => 'form__label']) !!}
+                {!! Form::textarea('text', null, ['id' => 'editor','class' => 'form__field' . ($errors->has('text') ? ' form__field--invalid' : null)]) !!}
+                @error('text')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::label('category', 'Category', ['class' => 'form__label']) !!}
-            {!! Form::select('category', $categories, null, ['class' => 'form__field', 'placeholder' => 'Select a category..']) !!}
-            @error('category')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('category', 'Category', ['class' => 'form__label']) !!}
+                {!! Form::select('category', $categories, null, ['class' => 'form__field', 'placeholder' => 'Select a category..']) !!}
+                @error('category')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::submit('Publish', ['class' => 'button form__submit']) !!}
+            <div class="form__group">
+                {!! Form::submit('Publish', ['class' => 'button form__submit']) !!}
+            </div>
 
             {!! Form::close() !!}
 
@@ -48,5 +56,26 @@
     </main>
 
     @include('layouts.partials.footer')
+
+@endsection
+@section('page-scripts')
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+    <script>
+
+            ClassicEditor
+            .create( document.querySelector('#editor'), {
+                toolbar: ['heading', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo']
+            })
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+
+            console.log(ClassicEditor.builtinPlugins.map( plugin => plugin.pluginName ));
+
+    </script>
 
 @endsection

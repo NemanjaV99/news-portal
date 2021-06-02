@@ -12,39 +12,49 @@
 
             {!! Form::open(['route' => 'register.process', 'class' => 'form register-form']) !!}
 
-            {!! Form::label('first_name', 'First Name', ['class' => 'form__label']) !!}
-            {!! Form::text('first_name', null, ['class' => 'form__field' . ($errors->has('first_name') ? ' form__field--invalid' : null)]) !!}
-            @error('first_name')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('first_name', 'First Name', ['class' => 'form__label']) !!}
+                {!! Form::text('first_name', null, ['class' => 'form__field' . ($errors->has('first_name') ? ' form__field--invalid' : null)]) !!}
+                @error('first_name')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::label('last_name', 'Last Name', ['class' => 'form__label']) !!}
-            {!! Form::text('last_name', null, ['class' => 'form__field' . ($errors->has('last_name') ? ' form__field--invalid' : null)]) !!}
-            @error('last_name')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('last_name', 'Last Name', ['class' => 'form__label']) !!}
+                {!! Form::text('last_name', null, ['class' => 'form__field' . ($errors->has('last_name') ? ' form__field--invalid' : null)]) !!}
+                @error('last_name')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::label('email', 'Email Adress', ['class' => 'form__label']) !!}
-            {!! Form::email('email', null, ['class' => 'form__field' . ($errors->has('email') ? ' form__field--invalid' : null)]) !!}
-            @error('email')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('email', 'Email Adress', ['class' => 'form__label']) !!}
+                {!! Form::email('email', null, ['class' => 'form__field' . ($errors->has('email') ? ' form__field--invalid' : null)]) !!}
+                @error('email')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::label('password', 'Password', ['class' => 'form__label']) !!}
-            {!! Form::password('password', ['class' => 'form__field' . ($errors->has('password') ? ' form__field--invalid' : null)]) !!}
-            @error('password')
-                <div class="form__error">
-                    {{$message}}
-                </div>
-            @enderror
+            <div class="form__group">
+                {!! Form::label('password', 'Password', ['class' => 'form__label']) !!}
+                {!! Form::password('password', ['class' => 'form__field' . ($errors->has('password') ? ' form__field--invalid' : null)]) !!}
+                @error('password')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
 
-            {!! Form::submit('Register', ['class' => 'button form__submit']) !!}
+            <div class="form__group">
+                {!! Form::submit('Register', ['class' => 'button form__submit']) !!}
+            </div>
 
             <a class='form__link link' href="{{route('login.form')}}">Already have an account? Log in.</a>
 
@@ -56,6 +66,6 @@
     </main>
 
 
-    {{-- @include('layouts.partials.footer') --}}
+    @include('layouts.partials.footer')
 
 @endsection
