@@ -26,7 +26,7 @@
 
             <div class="form__group">
                 {!! Form::label('text', 'Text', ['class' => 'form__label']) !!}
-                {!! Form::textarea('text', null, ['id' => 'editor','class' => 'form__field' . ($errors->has('text') ? ' form__field--invalid' : null)]) !!}
+                {!! Form::textarea('text', null, ['id' => 'editor','class' => 'form__field']) !!}
                 @error('text')
                     <div class="form__error">
                         {{$message}}
@@ -36,7 +36,7 @@
 
             <div class="form__group">
                 {!! Form::label('category', 'Category', ['class' => 'form__label']) !!}
-                {!! Form::select('category', $categories, null, ['class' => 'form__field', 'placeholder' => 'Select a category..']) !!}
+                {!! Form::select('category', $categories, null, ['class' => 'form__field' . ($errors->has('title') ? ' form__field--invalid' : null), 'placeholder' => 'Select a category..']) !!}
                 @error('category')
                     <div class="form__error">
                         {{$message}}

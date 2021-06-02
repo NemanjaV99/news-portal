@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\Article\StoreArticleRequest;
 use App\Models\ArticleCategory;
+use App\Models\Article;
 
 class ArticleController extends Controller
 {
@@ -54,9 +58,29 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Article $article, StoreArticleRequest $request)
     {
-        dd($request);
+        $data = $request->validated();
+
+        // Get author id
+        // The form request authorizes the user as an editor, so we only need the user id ( current user id )
+        $data['author_id'] = Auth::id();
+
+        // Generate the hash id. The unique string that will be used as article id in urls ( news-portal.com/article/ab94njnz9j3njna <--)
+        $data['hash_id'] = bin2hex(random_bytes(20));
+
+        $status = $article->create($data);
+
+        if ($status) {
+
+            // If article is created, redirect to home page where it should appear in latest articles
+            return redirect()->route('home.index');
+
+        } else {
+
+            // We failed to create the article
+            return redirect()->route('article.create_form')->withErrors(['create_failed' => 'Something went wrong.']);
+        }
     }
 
     /**
