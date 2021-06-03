@@ -287,6 +287,8 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 10px 0 25px 0;
 	width: 70%;
 	font-family: 'Open Sans', sans-serif;
+	border: 1px solid rgb(201, 201, 201);
+	padding: 15px 25px;
 }
 
 	.news-article__title {
@@ -312,6 +314,17 @@ h1, h2, h3, h4, h5, h6 {
 		.news-article__time {
 
 			font-size: 14px;
+		}
+
+		.news-article__more {
+
+			float: right;
+			text-decoration: none;
+			color: #fff;
+			border: 1px solid rgb(0, 69, 160);
+			background:rgb(0, 69, 160);
+			padding: 5px 10px;
+			font-size: 12px;
 		}
 		
 /*--------------------------------*\

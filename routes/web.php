@@ -44,9 +44,13 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 // -- Article routes -- //
 
+Route::post('/article', [ArticleController::class, 'store'])
+    ->name('article.store');
+
 Route::get('/article/create', [ArticleController::class, 'create'])
     ->name('article.create_form');
 
-Route::post('/article', [ArticleController::class, 'store'])
-    ->name('article.store');
+Route::get('/article/{hash_id}', [ArticleController::class, 'show'])
+    ->name('article.show');
+
 

@@ -14,6 +14,12 @@
 
             {!! Form::open(['route' => 'article.store', 'class' => 'form']) !!}
 
+            @error('store_error')
+                <div class="form__error">
+                    {{$message}}
+                </div>
+            @enderror
+
             <div class="form__group">
                 {!! Form::label('title', 'Title', ['class' => 'form__label']) !!}
                 {!! Form::text('title', null, ['class' => 'form__field' . ($errors->has('title') ? ' form__field--invalid' : null)]) !!}

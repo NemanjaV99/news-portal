@@ -79,7 +79,7 @@ class ArticleController extends Controller
         } else {
 
             // We failed to create the article
-            return redirect()->route('article.create_form')->withErrors(['create_failed' => 'Something went wrong.']);
+            return redirect()->route('article.create_form')->withErrors(['store_error' => 'Something went wrong.']);
         }
     }
 
@@ -91,7 +91,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**
