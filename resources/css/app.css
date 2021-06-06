@@ -11,17 +11,17 @@
 * Text
 * Link
 *
-* COMPONENTS
+* COMPONENTS.................. Components that exists on all pages
 * Header 
 * Footer
 * Section
-* News Article
 * Form
 * Button
 * Dropdown
 *
-* PAGES
-* Login 
+* PAGES...................... Components and style for elements that exist only on those pages
+* Home
+* Show Article  
 *
 */
 
@@ -279,55 +279,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*--------------------------------*\
-    #NEWS ARTICLE
-\*--------------------------------*/
-
-.news-article {
-
-	margin: 10px 0 25px 0;
-	width: 70%;
-	font-family: 'Open Sans', sans-serif;
-	border: 1px solid rgb(201, 201, 201);
-	padding: 15px 25px;
-}
-
-	.news-article__title {
-
-		font-size: 20px;
-	}
-
-	.news-article__text {
-
-		margin: 10px 0;
-	}
-
-	.news-article__info {
-		
-	}
-
-		.news-article__author {
-
-			font-size: 14px;
-			margin-right: 15px;
-		}
-
-		.news-article__time {
-
-			font-size: 14px;
-		}
-
-		.news-article__more {
-
-			float: right;
-			text-decoration: none;
-			color: #fff;
-			border: 1px solid rgb(0, 69, 160);
-			background:rgb(0, 69, 160);
-			padding: 5px 10px;
-			font-size: 12px;
-		}
-		
-/*--------------------------------*\
     #FORM
 \*--------------------------------*/
 
@@ -503,3 +454,119 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 /*----------*** END OF COMPONENTS ***----------------*/
+
+
+/*----------*** PAGES ***----------------*/
+
+/*--------------------------------*\
+    #HOME
+\*--------------------------------*/
+
+.article-box {
+
+	margin: 10px 0 25px 0;
+	width: 70%;
+	font-family: 'Open Sans', sans-serif;
+	padding: 10px 0;
+	border-top: 1px solid rgb(22, 107, 141);
+	border-bottom: 1px solid rgb(22, 107, 141);
+}
+
+	.article-box__title {
+
+		font-size: 20px;
+		color: rgb(22, 107, 141);
+	}
+
+	.article-box__info {
+		
+		margin-top: 20px;
+	}
+
+		.article-box__author {
+
+			font-size: 14px;
+			margin-right: 15px;
+		}
+
+		.article-box__time {
+
+			font-size: 14px;
+		}
+
+		.article-box__more {
+
+			float: right;
+			text-decoration: none;
+			color: #fff;
+			border: 1px solid rgb(0, 69, 160);
+			background:rgb(0, 69, 160);
+			padding: 5px 10px;
+			font-size: 12px;
+		}
+		
+/*--------------------------------*\
+    #SHOW ARTICLE
+\*--------------------------------*/
+
+.article {
+
+	font-family: 'Open Sans', sans-serif;
+}
+	.article__info {
+
+		margin-bottom: 20px;
+		border-bottom: 1px solid rgb(0, 69, 160);
+		padding: 10px 0;
+	}
+
+		.article__category {
+
+			margin-left: 15px;
+			background-color: rgb(180, 180, 180);
+			font-size: 14px;
+			padding: 3px 6px;
+			border-radius: 5px;
+		}
+
+		.article__posted {
+
+			float: right;
+			font-size: 14px;
+		}
+
+	.article__text h2 {
+
+		font-size: 24px;
+	}
+		
+	.article__text h3 {
+		
+		font-size: 22px;
+	}
+	
+	.article__text h4 {
+		
+		font-size: 20px;
+	}
+
+	.article__text ul,
+	.article__text ol {
+
+		padding-left: 30px;
+		margin: 15px 0;
+	}
+
+	.article__text ul {
+
+		list-style-type: disc;
+	}
+
+	.article__text ol {
+
+		list-style-type: decimal;
+	}
+
+
+/*----------*** END OF PAGES ***----------------*/
+

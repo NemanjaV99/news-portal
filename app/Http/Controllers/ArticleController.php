@@ -14,7 +14,7 @@ class ArticleController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     /**
@@ -89,9 +89,21 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Article $article)
     {
-        dd($id);
+        $articleToShow = $article->getByHashId($id);
+
+        if ($articleToShow->isEmpty()) {
+
+            // If not article was found, return 404 not found error
+            abort(404);
+        }
+
+        $articleToShow = $articleToShow->first();
+        // Format the date as human readable
+        $articleToShow->created_at = date('j D, Y H:i', strtotime($articleToShow->created_at));
+
+        return view('article.show', ['article' => $articleToShow]);
     }
 
     /**
