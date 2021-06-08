@@ -21,6 +21,7 @@ class Article extends Model
             'author_id' => $article['author_id'],
             'title' => $article['title'],
             'text' => $article['text'],
+            'image' => $article['image'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ];

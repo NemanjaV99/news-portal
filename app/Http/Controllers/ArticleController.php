@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Models\ArticleCategory;
@@ -61,19 +62,27 @@ class ArticleController extends Controller
     public function store(Article $article, StoreArticleRequest $request)
     {
         $data = $request->validated();
+        // The unique string that will be used as article id in urls ( news-portal.com/article/ab94njnz9j3njna <--)
+        $articleHashId = bin2hex(random_bytes(20));
 
-        // Get author id
-        // The form request authorizes the user as an editor, so we only need the user id ( current user id )
+        // Check if the image has been provided, and if so store the image
+        if ($request->has('image')) {
+
+            $storedImgPath = $request->file('image')->storeAs(
+                'articles/' . $articleHashId,
+                'main_img.' . $request->file('image')->extension(),
+                'public'
+            );
+        }
+
         $data['author_id'] = Auth::id();
-
-        // Generate the hash id. The unique string that will be used as article id in urls ( news-portal.com/article/ab94njnz9j3njna <--)
-        $data['hash_id'] = bin2hex(random_bytes(20));
+        $data['hash_id'] = $articleHashId;
+        $data['image'] = $storedImgPath ?? null;
 
         $status = $article->create($data);
-
+        
         if ($status) {
 
-            // If article is created, redirect to home page where it should appear in latest articles
             return redirect()->route('home.index');
 
         } else {

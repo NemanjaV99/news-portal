@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class StoreArticleRequest extends FormRequest
 {
+    
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -33,6 +34,15 @@ class StoreArticleRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'text' => ['required', 'string'],
             'category' => ['required', 'in:' . implode(',', $allowedCategories)],
+            'image' => ['sometimes', 'nullable', 'image', 'max:2048', 'mimes:jpg, jpeg, png'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'image.image' => 'The uploaded file must be an image.',
+            'image.max' => 'The image size exceeds the maximum limit ( 2MB )'
         ];
     }
 }

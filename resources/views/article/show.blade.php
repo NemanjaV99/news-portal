@@ -21,6 +21,12 @@
                 <span class="article__posted">{{$article->created_at}}</span>
             </div>
 
+            @if(isset($article->image))
+                <div class="article__image">
+                    <img src="{{asset('storage/' . $article->image)}}" alt="{{$article->title}}">
+                </div>
+            @endif
+
             <div class="article__text">
                 {!! $article->text !!}
             </div>
