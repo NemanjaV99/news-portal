@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Models\ArticleCategory;
 use App\Models\Article;
@@ -70,9 +70,18 @@ class ArticleController extends Controller
 
             $storedImgPath = $request->file('image')->storeAs(
                 'articles/' . $articleHashId,
-                'main_img.' . $request->file('image')->extension(),
+                'thumbnail_main.' . $request->file('image')->extension(),
                 'public'
             );
+
+            // Now make a resized copy of the image for smaller thumbnails
+            $secondImg = Image::make(storage_path("app/public/" . $storedImgPath));
+
+            $secondImg->resize(250, null, function($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            $secondImg->save(storage_path("app/public/articles/" . $articleHashId) . '/thumbnail_small.' . $secondImg->extension);
         }
 
         $data['author_id'] = Auth::id();

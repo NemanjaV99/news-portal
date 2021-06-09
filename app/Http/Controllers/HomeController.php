@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Article;
-use Illuminate\Support\Carbon;
-use DOMDocument;
+use Intervention\Image\Facades\Image;
 
 class HomeController extends Controller
 {
