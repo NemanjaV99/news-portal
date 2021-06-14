@@ -18,5 +18,19 @@
 <body>
     @yield('page-content')
     @yield('page-scripts')
+    <script>
+
+        // Format dates to human readable format
+        let dateElements = document.getElementsByClassName('date-format');
+
+        for (i = 0; i < dateElements.length; i++) {
+
+            let newDate = new Date(dateElements[i].textContent);
+
+            dateElements[i].textContent = newDate.toDateString();
+
+        }
+
+    </script>
 </body>
 </html>

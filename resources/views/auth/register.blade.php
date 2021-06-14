@@ -53,7 +53,7 @@
             </div>
 
             <div class="form__group">
-                {!! Form::submit('Register', ['class' => 'button form__submit']) !!}
+                {!! Form::submit('Register', ['class' => 'button button--gray form__submit']) !!}
             </div>
 
             <a class='form__link link' href="{{route('login.form')}}">Already have an account? Log in.</a>

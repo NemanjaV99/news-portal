@@ -356,7 +356,6 @@ h1, h2, h3, h4, h5, h6 {
 .button {
 
 	background: none;
-	border: 2px solid rgb(200, 200, 200);
 	font-family: 'Roboto', sans-serif;
 	font-size: 15px;
 	padding: 5px 18px;
@@ -365,11 +364,29 @@ h1, h2, h3, h4, h5, h6 {
 	cursor: pointer;
 }
 
-.button:hover {
+.button--gray {
+
+	border: 2px solid rgb(200, 200, 200);
+}
+
+.button--gray:hover {
 
 	background-color: rgb(200, 200, 200);
 	color: #fff;
 }
+
+.button--blue {
+
+	background-color: rgb(0, 80, 253);
+	color: #fff;
+	border: none;
+}
+
+.button--blue:hover {
+
+	background-color: rgba(0, 80, 253, 0.6);
+}
+
 
 /*--------------------------------*\
     #DROPDOWN
@@ -572,6 +589,21 @@ h1, h2, h3, h4, h5, h6 {
 		list-style-type: decimal;
 	}
 
+	.article__comments {
+
+		border-top: 1px solid rgb(0, 69, 160);
+		padding: 15px 0;
+		margin: 30px 0;
+	}
+
+		.article__comment {
+
+			background-color: rgb(230, 230, 230);
+			height: 50px;
+			width: 100%;
+			border-radius: 10px;
+			margin: 10px 0;
+		}
 
 /*----------*** END OF PAGES ***----------------*/
 

@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Models\ArticleCategory;
 use App\Models\Article;
+use App\Models\Comment;
 
 class ArticleController extends Controller
 {
@@ -107,9 +108,9 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Article $article)
+    public function show($hashId, Article $article, Comment $comment)
     {
-        $articleToShow = $article->getByHashId($id);
+        $articleToShow = $article->getByHashId($hashId);
 
         if ($articleToShow->isEmpty()) {
 
@@ -118,10 +119,11 @@ class ArticleController extends Controller
         }
 
         $articleToShow = $articleToShow->first();
-        // Format the date as human readable
-        $articleToShow->created_at = date('j D, Y H:i', strtotime($articleToShow->created_at));
 
-        return view('article.show', ['article' => $articleToShow]);
+        // Retrieve the comments for this article
+        $articleComments = $comment->getArticleComments($articleToShow->id);
+
+        return view('article.show', ['article' => $articleToShow, 'comments' => $articleComments]);
     }
 
     /**
