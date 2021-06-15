@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
@@ -52,5 +53,10 @@ Route::get('/article/create', [ArticleController::class, 'create'])
 
 Route::get('/article/{hash_id}', [ArticleController::class, 'show'])
     ->name('article.show');
+
+
+// -- Comment routes -- //
+Route::post('/comment', [CommentController::class, 'store'])
+    ->name('comment.store');
 
 

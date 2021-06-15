@@ -12,11 +12,11 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
     @yield('page-styles')
-    <!-- Script -->
-    <script src="{{asset('assets/js/app.js')}}"></script>
 </head>
 <body>
     @yield('page-content')
+    <!-- Script -->
+    <script src="{{asset('assets/js/app.js')}}"></script>
     @yield('page-scripts')
     <script>
 

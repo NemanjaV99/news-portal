@@ -55,7 +55,45 @@
     
                 @endif
                 @auth
-                    <button class="article__add-comment button button--blue">Add a new comment</button>
+                    {!! Form::open(['route' => 'comment.store', 'class' => 'form']) !!}
+
+                    {{Form::hidden('article', $article->hash_id)}}
+
+                    @error('article')
+                        <div class="form__group">
+                            <div class="form__error">
+                                {{$message}}
+                            </div>
+                        </div>
+                    @enderror
+
+                    @error('store_error')
+                        <div class="form__group">
+                            <div class="form__error">
+                                {{$message}}
+                            </div>
+                        </div>
+                    @enderror
+                    
+                    <div class="form__group">
+                        {!! Form::label('comment', null, ['class' => 'form__label']) !!}
+                        {!! Form::textarea('comment', null, 
+                            [
+                                'class' => 'form__field'  . ($errors->has('comment') ? ' form__field--invalid' : null), 
+                                'placeholder' => 'Add a new comment..'
+                            ]) !!}
+                        @error('comment')
+                            <div class="form__error">
+                                {{$message}}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="form__group">
+                        {!! Form::submit('Add new', ['class' => 'button button--blue form__submit']) !!}
+                    </div>
+
+                    {!! Form::close() !!}
                 @endauth
             </div>
             
