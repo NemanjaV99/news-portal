@@ -34,24 +34,28 @@
             <div class="article__comments">
                 <h3>Comments by readers</h3>   
                 @if($comments->count() < 1) 
-                    <div class="article__no-comment">
+                    <div class="article__no-comments">
                         No comments.
                     </div>
                 @else
 
                     @foreach($comments as $comment)
 
-                        <div class="article__comment">
-                            <div class="article__comment-user">{{$comment->user_fname . ' ' . $comment->user_lname}}</div>
-                            <div class="article__comment-posted date-format">{{$comment->created_at}}</div>
-                            <div class="article__comment-content">{{$comment->comment}}</div>
+                        <div class="article__comment comment">
+                            <div class="comment__user">Posted by {{$comment->user_fname . ' ' . $comment->user_lname}}</div>
+                            <div class="comment__content">{{$comment->comment}}</div>
+                            <div class="comment__posted date-format">{{$comment->created_at}}</div>
+                            <div class="comment__votes">
+                                <span class="comment__upvotes"><i class="fas fa-arrow-alt-circle-up comment__vote-btn"></i> {{$comment->upvotes}}</span>
+                                <span class="comment__downvotes"><i class="fas fa-arrow-alt-circle-down comment__vote-btn"></i> {{$comment->downvotes}}</span>
+                            </div>
                         </div>
 
                     @endforeach
     
                 @endif
                 @auth
-                    <button class="button button--blue">Add a new comment</button>
+                    <button class="article__add-comment button button--blue">Add a new comment</button>
                 @endauth
             </div>
             

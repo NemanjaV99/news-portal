@@ -18,6 +18,7 @@
 * Form
 * Button
 * Dropdown
+* Comment
 *
 * PAGES...................... Components and style for elements that exist only on those pages
 * Home
@@ -270,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
 .section__title {
 
 	font-size: 28px;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 }
 
 .section__title--center {
@@ -291,6 +292,7 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 10px;
 	text-align: center;
 	font-family: 'Open Sans', sans-serif;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
 }
 
 	.form__group {
@@ -470,6 +472,70 @@ h1, h2, h3, h4, h5, h6 {
 		display: block;
 	}
 
+
+/*--------------------------------*\
+    #COMMENT
+\*--------------------------------*/
+
+.comment {
+
+	padding: 15px;
+	overflow: hidden;
+	background-color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+	.comment__user {
+
+		font-size: 14px;
+		color: rgb(125 125 125);
+	}
+
+	.comment__content {
+
+		margin: 15px 0;
+		padding: 10px 5px;
+		background-color: rgb(230, 230, 230);
+		border: 1px solid rgb(170, 170, 170);
+	}
+
+	.comment__posted {
+
+		font-size: 14px;
+		color: rgb(125 125 125);
+		float: left;
+	}
+
+	.comment__votes {
+
+		float: right;
+		font-size: 15px;
+	}
+
+		.comment__upvotes {
+
+			color: rgb(0, 170, 50);
+		}
+
+		.comment__downvotes {
+
+			color: rgb(180, 0, 0);
+			margin-left: 10px;
+		}
+
+		.comment__vote-btn {
+
+			cursor: pointer;
+		}
+
+		.comment__vote-btn:hover {
+
+			
+		}
+
+
 /*----------*** END OF COMPONENTS ***----------------*/
 
 
@@ -484,15 +550,17 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 10px 0 25px 0;
 	width: 70%;
 	font-family: 'Open Sans', sans-serif;
-	padding: 10px 0;
-	border-top: 1px solid rgb(22, 107, 141);
-	border-bottom: 1px solid rgb(22, 107, 141);
+	padding: 15px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
 }
 
 	.article-box__title {
 
 		font-size: 20px;
 		color: rgb(22, 107, 141);
+		margin-bottom: 50px;
 	}
 
 	.article-box__info {
@@ -598,12 +666,21 @@ h1, h2, h3, h4, h5, h6 {
 
 		.article__comment {
 
-			background-color: rgb(230, 230, 230);
-			height: 50px;
 			width: 100%;
-			border-radius: 10px;
 			margin: 10px 0;
 		}
+
+	.article__no-comments {
+
+		margin: 10px 0;
+		font-size: 14px;
+	}
+
+	.article__add-comment {
+
+		margin-top: 15px;
+	}
+		
 
 /*----------*** END OF PAGES ***----------------*/
 
