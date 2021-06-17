@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Models\User;
 
 class Comment extends Model
 {
@@ -16,16 +17,22 @@ class Comment extends Model
     public function create($comment)
     {
         $insertData = [
+            'hash_id' => $comment['hash_id'],
             'user_id' => $comment['user_id'],
             'article_id' => $comment['article_id'],
             'comment' => $comment['comment'],
-            'upvotes' => 0, //temp
-            'downvotes' => 0, //temp - set default on table
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ];
 
         return DB::table($this->table)->insert($insertData);
+    }
+
+    public function getByHashId($hashId)
+    {
+        $comment = DB::table($this->table)->where('hash_id', $hashId)->get();
+
+        return $comment;
     }
 
     public function getArticleComments($articleId)

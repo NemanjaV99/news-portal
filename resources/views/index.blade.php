@@ -32,6 +32,13 @@
 
                 @endforeach
 
+            @else 
+
+                    <div class="no-articles text">
+                        <i class="fas fa-search no-articles__icon"></i>
+                        No articles to show.
+                    </div>
+
             @endif
 
         </section>

@@ -46,8 +46,8 @@
                             <div class="comment__content">{{$comment->comment}}</div>
                             <div class="comment__posted date-format">{{$comment->created_at}}</div>
                             <div class="comment__votes">
-                                <span class="comment__upvotes"><i class="fas fa-arrow-alt-circle-up comment__vote-btn"></i> {{$comment->upvotes}}</span>
-                                <span class="comment__downvotes"><i class="fas fa-arrow-alt-circle-down comment__vote-btn"></i> {{$comment->downvotes}}</span>
+                                <span class="comment__upvotes"><i onclick="upvote()" id="comment_upvote" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>0</span>
+                                <span class="comment__downvotes"><i onclick="downvote()" id="comment_downvote" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>0</span>
                             </div>
                         </div>
 
@@ -102,5 +102,33 @@
     </main>
 
     @include('layouts.partials.footer')
+
+@endsection
+
+@section('page-scripts')
+
+    <script>
+
+        function upvote() {
+
+            let comment = document.querySelector("#comment_upvote").dataset.comment
+
+            axios.post(UPVOTE_URL, {
+                comment: comment,
+            })
+            .then (function (response) {
+                console.log(response)
+            })
+            .catch (function (error) {
+                console.log(error)
+            })
+        }
+
+        function downvote() {
+
+            let comment = document.querySelector("#comment_downvote").dataset.comment
+        }
+
+    </script>
 
 @endsection
