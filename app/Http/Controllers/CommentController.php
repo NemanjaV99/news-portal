@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Comment\StoreCommentRequest;
+use App\Http\Requests\Comment\VoteCommentRequest;
 use App\Models\Comment;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('ajax')->only(['vote']);
+    }
     
     public function store(StoreCommentRequest $request, Comment $comment, Article $article)
     {
@@ -40,27 +45,27 @@ class CommentController extends Controller
         }
     }
 
-    public function upvote(Request $request, Comment $comment)
+    public function vote(VoteCommentRequest $request, Comment $comment)
     {
-        // Check if request is ajax
-        if (!$request->ajax()) {
-
-            // If the request is not sent by AJAX, return err
-            return response('', 405);
-        }
-
-        // Check if user is logged in
-        if (!Auth::check()) {
-
-            return response('', 401);
-        }
-
+        // The request contains the hash id of the comment, and a vote field which should be boolean ( only values: 1 or 0)
+    
         // First, retrieve the comment by the hash id passed in the ajax request
-        $commentByHash = $comment->getByHashId($request->get('hash_id'));
+        $commentByHash = $comment->getByHashId($request->get('comment'));
 
-        $commentId = $commentByHash->first()->id;
-        $userId = Auth::user()->id;
+        $voteData['comment_id'] = $commentByHash->first()->id;
+        $voteData['vote'] = (bool)$request->get('vote'); 
+        $voteData['user_id'] = Auth::user()->id;
 
+        $status = $comment->vote($voteData);
+        $countedVotes = $comment->countVotes($voteData['comment_id']);
+
+        return response(['status' => $status, 'votes' => $countedVotes->first()]);
+        
+        // When a user selects a vote (upvote/downvote)
+        // The row is insterted in the database
+        // If the user has already voted for this comment, be it a upvote or downvote, we need to check for that first
+        // If the user has already upvoted the comment, and tries to upvote again, remove his upvote and same is for downvote
+        // If the user has upvoted a comment, but now downvotes it, remove the upvote and add the downvote(update row?)
     }
     
 }

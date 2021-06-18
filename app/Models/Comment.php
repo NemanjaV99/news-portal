@@ -46,4 +46,38 @@ class Comment extends Model
 
         return $comments;
     }
+
+    public function vote($voteData)
+    {
+        // Check if the row already exists
+        $vote = DB::table('user_comment_votes')->where(['user_id' => $voteData['user_id'], 'comment_id' => $voteData['comment_id']])->get();
+
+        if ($vote->isEmpty()) {
+
+            // This is the first user vote for this specific comment
+            $status = DB::table('user_comment_votes')->insert([
+                'user_id' => $voteData['user_id'],
+                'comment_id' => $voteData['comment_id'],
+                'vote' => $voteData['vote'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+        } else {
+
+            // If it's not the first time
+        }
+
+        return $status;
+    }
+
+    public function countVotes($comment)
+    {
+        $commentVoteCount = DB::table('user_comment_votes')
+            ->select(DB::raw('count(case when vote = 1 then 1 end) AS upvotes, count(case when vote = 0 then 1 end) AS downvotes'))
+            ->where(['comment_id' => $comment])
+            ->get();
+
+        return $commentVoteCount;
+    }
 }

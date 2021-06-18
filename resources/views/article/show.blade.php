@@ -46,8 +46,14 @@
                             <div class="comment__content">{{$comment->comment}}</div>
                             <div class="comment__posted date-format">{{$comment->created_at}}</div>
                             <div class="comment__votes">
-                                <span class="comment__upvotes"><i onclick="upvote()" id="comment_upvote" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>0</span>
-                                <span class="comment__downvotes"><i onclick="downvote()" id="comment_downvote" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>0</span>
+                                <span class="comment__upvotes">
+                                    <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>
+                                    <span id="comment_upvote_count">0</span>
+                                </span>
+                                <span class="comment__downvotes">
+                                    <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>
+                                    <span id="comment_downvote_count">0</span>
+                                </span>
                             </div>
                         </div>
 
@@ -109,24 +115,25 @@
 
     <script>
 
-        function upvote() {
+        function vote(voteBtn) {
 
-            let comment = document.querySelector("#comment_upvote").dataset.comment
-
-            axios.post(UPVOTE_URL, {
+            let comment = voteBtn.dataset.comment
+            let vote = voteBtn.dataset.vote
+            let url = "/comment/vote";
+            
+            axios.post(url, {
                 comment: comment,
+                vote: vote,
             })
             .then (function (response) {
-                console.log(response)
+            
+                document.querySelector("#comment_upvote_count").textContent = response.data.votes.upvotes;
+                document.querySelector("#comment_downvote_count").textContent = response.data.votes.downvotes;
+
             })
             .catch (function (error) {
                 console.log(error)
             })
-        }
-
-        function downvote() {
-
-            let comment = document.querySelector("#comment_downvote").dataset.comment
         }
 
     </script>

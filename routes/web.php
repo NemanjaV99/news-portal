@@ -59,7 +59,7 @@ Route::get('/article/{hash_id}', [ArticleController::class, 'show'])
 Route::post('/comment', [CommentController::class, 'store'])
     ->name('comment.store');
 
-Route::post('/comment/upvote', [CommentController::class, 'upvote'])
-    ->name('comment.upvote');
+Route::post('/comment/vote', [CommentController::class, 'vote'])
+    ->name('comment.vote');
 
 
