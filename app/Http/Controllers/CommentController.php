@@ -13,7 +13,7 @@ class CommentController extends Controller
 
     public function __construct()
     {
-        $this->middleware('ajax')->only(['vote']);
+        $this->middleware(['ajax', 'throttle:4'])->only(['vote']);
     }
     
     public function store(StoreCommentRequest $request, Comment $comment, Article $article)
@@ -60,12 +60,6 @@ class CommentController extends Controller
         $countedVotes = $comment->countVotes($voteData['comment_id']);
 
         return response(['status' => $status, 'votes' => $countedVotes->first()]);
-        
-        // When a user selects a vote (upvote/downvote)
-        // The row is insterted in the database
-        // If the user has already voted for this comment, be it a upvote or downvote, we need to check for that first
-        // If the user has already upvoted the comment, and tries to upvote again, remove his upvote and same is for downvote
-        // If the user has upvoted a comment, but now downvotes it, remove the upvote and add the downvote(update row?)
     }
     
 }
