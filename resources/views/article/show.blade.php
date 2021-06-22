@@ -134,13 +134,13 @@
 
                 } else {
 
-                    alert('Something went wrong. Please try again.');
+                    alertify.notify('Something went wrong. Please try again.', 'error')
                 }
 
             })
             .catch (function (error) {
                 
-                alert('Something went wrong. Please try again.');
+                alertify.notify('Something went wrong. Please try again.', 'error')
             })
         }
 

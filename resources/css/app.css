@@ -1,12 +1,15 @@
 /**
 * CONTENTS
 *
-* BASE
-* Reset
-* Main
+* LIBRARIES.................. Imported css code for included JS libraries
+* Alertifyjs
 * Library overwrites
 *
-* TYPOGRAPHY
+* BASE....................... Style for base components (main, body) as well as css resets
+* Reset
+* Main
+*
+* TYPOGRAPHY.................. Text styling
 * Heading
 * Text
 * Link
@@ -25,6 +28,81 @@
 * Show Article  
 *
 */
+
+
+/*----------*** LIBRARIES ***----------------*/
+
+/*--------------------------------*\
+    #ALERTIFYJS
+\*--------------------------------*/
+
+@import 'libraries/alertify/alertify.css';
+@import 'libraries/alertify/themes/default.css';
+
+.alertify-notifier {
+
+	font-family: 'Open Sans', sans-serif;
+}
+
+
+/*--------------------------------*\
+    #LIBRARY OVERWRITES
+\*--------------------------------*/
+
+/* CKEDITOR5 */
+.ck-editor__editable {
+
+	height: 300px;
+}
+
+.ck-editor__editable strong {
+
+	font-weight: bold;
+}
+
+.ck-editor__editable i {
+
+	font-style: italic;
+}
+
+.ck-editor__editable h2 {
+
+	font-size: 24px;
+}
+
+.ck-editor__editable h3 {
+
+	font-size: 22px;
+}
+
+.ck-editor__editable h4 {
+
+	font-size: 20px;
+}
+
+.ck-editor__editable ul,
+.ck-editor__editable ol {
+
+	padding-left: 30px;
+	margin: 15px 0;
+}
+
+.ck-editor__editable ul {
+
+	list-style-type: disc;
+}
+
+.ck-editor__editable ol {
+
+	list-style-type: decimal;
+}
+
+.ck-editor__editable blockquote,
+.ck-editor__editable q {
+
+	color: rgb(30, 30, 30);
+}
+
 
 /*----------*** BASE ***----------------*/
 
@@ -93,64 +171,6 @@ table {
 
 	padding: 30px 25px;
 	min-height: 100vh;
-}
-
-/*--------------------------------*\
-    #LIBRARY OVERWRITES
-\*--------------------------------*/
-
-/* CKEDITOR5 */
-.ck-editor__editable {
-
-	height: 300px;
-}
-
-.ck-editor__editable strong {
-
-	font-weight: bold;
-}
-
-.ck-editor__editable i {
-
-	font-style: italic;
-}
-
-.ck-editor__editable h2 {
-
-	font-size: 24px;
-}
-
-.ck-editor__editable h3 {
-
-	font-size: 22px;
-}
-
-.ck-editor__editable h4 {
-
-	font-size: 20px;
-}
-
-.ck-editor__editable ul,
-.ck-editor__editable ol {
-
-	padding-left: 30px;
-	margin: 15px 0;
-}
-
-.ck-editor__editable ul {
-
-	list-style-type: disc;
-}
-
-.ck-editor__editable ol {
-
-	list-style-type: decimal;
-}
-
-.ck-editor__editable blockquote,
-.ck-editor__editable q {
-
-	color: rgb(30, 30, 30);
 }
 
 /*----------*** END OF BASE ***----------------*/
