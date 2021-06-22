@@ -39,7 +39,7 @@ class Comment extends Model
     {
         $comments = DB::table($this->table)
             ->join('users', $this->table . '.user_id', '=', 'users.id')
-            ->join('user_comment_votes', $this->table . '.id', '=', 'user_comment_votes.comment_id')
+            ->leftJoin('user_comment_votes', $this->table . '.id', '=', 'user_comment_votes.comment_id')
             ->select(
                 $this->table . '.id',
                 $this->table . '.hash_id',

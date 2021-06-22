@@ -48,11 +48,11 @@
                             <div class="comment__votes">
                                 <span class="comment__upvotes">
                                     <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>
-                                    <span id="comment_upvote_count">{{$comment->upvotes}}</span>
+                                    <span class="comment__vote-count">{{$comment->upvotes}}</span>
                                 </span>
                                 <span class="comment__downvotes">
                                     <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>
-                                    <span id="comment_downvote_count">{{$comment->downvotes}}</span>
+                                    <span class="comment__vote-count">{{$comment->downvotes}}</span>
                                 </span>
                             </div>
                         </div>
@@ -129,8 +129,8 @@
 
                 if (response.data.status) {
 
-                    document.querySelector("#comment_upvote_count").textContent = response.data.votes.upvotes;
-                    document.querySelector("#comment_downvote_count").textContent = response.data.votes.downvotes;
+                    document.querySelector("[data-comment='" + comment + "'][data-vote='1']").nextElementSibling.textContent = response.data.votes.upvotes;
+                    document.querySelector("[data-comment='" + comment + "'][data-vote='0']").nextElementSibling.textContent = response.data.votes.downvotes;
 
                 } else {
 
