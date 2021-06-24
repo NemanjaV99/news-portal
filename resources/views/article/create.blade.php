@@ -90,8 +90,6 @@
                 console.error( error );
             } );
 
-            console.log(ClassicEditor.builtinPlugins.map( plugin => plugin.pluginName ));
-
     </script>
 
 @endsection

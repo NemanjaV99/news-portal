@@ -33,13 +33,13 @@
 
             <div class="article__comments">
                 <h3>Comments by readers</h3>   
-                @if($comments->count() < 1) 
+                @if(count($commentsPaginator->items()) < 1) 
                     <div class="article__no-comments">
                         No comments.
                     </div>
                 @else
 
-                    @foreach($comments as $comment)
+                    @foreach($commentsPaginator->items() as $comment)
 
                         <div class="article__comment comment">
                             <div class="comment__user">Posted by {{$comment->user_fname . ' ' . $comment->user_lname}}</div>
@@ -58,10 +58,28 @@
                         </div>
 
                     @endforeach
-    
+
+                    <div class="article__comment-paginator paginator">
+
+                        @if ($commentsPaginator->onFirstPage())
+                            <span class="paginator__link paginator__link--disabled">Previous</span>
+                        @else
+                            <a class="paginator__link" href="{{$commentsPaginator->previousPageUrl()}}">Previous</a>
+                        @endif
+
+                        <span class="paginator__divider">|</span>
+
+                        @if (!$commentsPaginator->hasMorePages())
+                            <span class="paginator__link paginator__link--disabled">Next</span>
+                        @else
+                            <a class="paginator__link" href="{{$commentsPaginator->nextPageUrl()}}">Next</a>
+                        @endif
+
+                    </div>
+
                 @endif
                 @auth
-                    {!! Form::open(['route' => 'comment.store', 'class' => 'form']) !!}
+                    {!! Form::open(['route' => 'comment.store', 'class' => 'form article__comment-form']) !!}
 
                     {{Form::hidden('article', $article->hash_id)}}
 
@@ -85,7 +103,7 @@
                         {!! Form::label('comment', null, ['class' => 'form__label']) !!}
                         {!! Form::textarea('comment', null, 
                             [
-                                'class' => 'form__field'  . ($errors->has('comment') ? ' form__field--invalid' : null), 
+                                'class' => 'form__field form__field--full-width'  . ($errors->has('comment') ? ' form__field--invalid' : null), 
                                 'placeholder' => 'Add a new comment..'
                             ]) !!}
                         @error('comment')

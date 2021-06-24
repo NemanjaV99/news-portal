@@ -61,5 +61,5 @@ class CommentController extends Controller
 
         return response(['status' => $status, 'votes' => $countedVotes->first()]);
     }
-    
+
 }

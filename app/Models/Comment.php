@@ -14,6 +14,8 @@ class Comment extends Model
 
     protected $table = 'comments';
 
+    private $defaultLimit = 5;
+
     public function create($comment)
     {
         $insertData = [
@@ -35,8 +37,9 @@ class Comment extends Model
         return $comment;
     }
 
-    public function getArticleComments($articleId)
+    public function getArticleCommentsPaginated($articleId, $perPage = 5)
     {
+    
         $comments = DB::table($this->table)
             ->join('users', $this->table . '.user_id', '=', 'users.id')
             ->leftJoin('user_comment_votes', $this->table . '.id', '=', 'user_comment_votes.comment_id')
@@ -59,7 +62,7 @@ class Comment extends Model
                 'users.first_name', 
                 'users.last_name')
             ->orderBy($this->table . '.created_at', 'desc')
-            ->get();
+            ->simplePaginate($perPage, ['*'], 'comments');
 
         return $comments;
     }

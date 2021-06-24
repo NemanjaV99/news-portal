@@ -20,17 +20,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new article
      *
      * @return \Illuminate\Http\Response
      */
@@ -55,7 +45,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a new article in database
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -103,9 +93,8 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified article using the hash id
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($hashId, Article $article, Comment $comment)
@@ -121,42 +110,8 @@ class ArticleController extends Controller
         $articleToShow = $articleToShow->first();
 
         // Retrieve the comments for this article
-        $articleComments = $comment->getArticleComments($articleToShow->id);
+        $commentsPaginator = $comment->getArticleCommentsPaginated($articleToShow->id);
 
-        return view('article.show', ['article' => $articleToShow, 'comments' => $articleComments]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('article.show', ['article' => $articleToShow, 'commentsPaginator' => $commentsPaginator]);
     }
 }

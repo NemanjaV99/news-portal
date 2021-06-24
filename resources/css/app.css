@@ -22,6 +22,7 @@
 * Button
 * Dropdown
 * Comment
+* Paginator
 *
 * PAGES...................... Components and style for elements that exist only on those pages
 * Home
@@ -327,6 +328,8 @@ h1, h2, h3, h4, h5, h6 {
 			padding: 5px 10px;
 			margin: 0 auto;
 			width: 40%;
+			box-sizing: border-box;
+			resize: none;
 		}
 
 		.form__field:focus-visible {
@@ -338,6 +341,11 @@ h1, h2, h3, h4, h5, h6 {
 
 			margin: 0 auto 5px auto;
 			border: 1px solid rgb(180, 0, 0);
+		}
+
+		.form__field--full-width {
+
+			width: 100%;
 		}
 
 		.form__label {
@@ -551,10 +559,21 @@ h1, h2, h3, h4, h5, h6 {
 			cursor: pointer;
 		}
 
-		.comment__vote-btn:hover {
 
-			
-		}
+/*--------------------------------*\
+    #PAGINATOR
+\*--------------------------------*/
+
+.paginator__link {
+
+	color: rgb(0, 80, 253);
+	text-decoration: none;
+}
+
+.paginator__link--disabled {
+
+	color: rgb(180, 180, 180);
+}
 
 
 /*----------*** END OF COMPONENTS ***----------------*/
@@ -716,7 +735,18 @@ h1, h2, h3, h4, h5, h6 {
 
 		margin-top: 15px;
 	}
-		
+
+	.article__comment-paginator {
+
+		margin: 20px auto;
+		text-align: center;
+	}
+
+	.article__comment-form {
+
+		width: 100%;
+		box-sizing: border-box;
+	}
 
 /*----------*** END OF PAGES ***----------------*/
 
