@@ -45,16 +45,34 @@
                             <div class="comment__user">Posted by {{$comment->user_fname . ' ' . $comment->user_lname}}</div>
                             <div class="comment__content">{{$comment->comment}}</div>
                             <div class="comment__posted date-format">{{$comment->created_at}}</div>
-                            <div class="comment__votes">
-                                <span class="comment__upvotes">
-                                    <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>
-                                    <span class="comment__vote-count">{{$comment->upvotes}}</span>
-                                </span>
-                                <span class="comment__downvotes">
-                                    <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>
-                                    <span class="comment__vote-count">{{$comment->downvotes}}</span>
-                                </span>
-                            </div>
+                            @if ($comment->user_id !== Auth::user()->id)
+                                <div class="comment__votes">
+                                    <span class="comment__upvotes">
+                                        @if (
+                                            array_key_exists($comment->id, Session::get('voted_items')['comments']) 
+                                            && 
+                                            Session::get('voted_items')['comments'][$comment->id]->vote === 1
+                                            )
+                                            <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>
+                                        @else
+                                            <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="far fa-arrow-alt-circle-up comment__vote-btn"></i>
+                                        @endif
+                                        <span class="comment__vote-count">{{$comment->upvotes}}</span>
+                                    </span>
+                                    <span class="comment__downvotes">
+                                        @if (
+                                            array_key_exists($comment->id, Session::get('voted_items')['comments']) 
+                                            && 
+                                            Session::get('voted_items')['comments'][$comment->id]->vote === 0
+                                            )
+                                            <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>
+                                        @else
+                                            <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="far fa-arrow-alt-circle-down comment__vote-btn"></i>
+                                        @endif
+                                        <span class="comment__vote-count">{{$comment->downvotes}}</span>
+                                    </span>
+                                </div>
+                            @endif
                         </div>
 
                     @endforeach

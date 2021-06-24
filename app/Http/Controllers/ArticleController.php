@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Models\ArticleCategory;
@@ -110,7 +110,9 @@ class ArticleController extends Controller
         $articleToShow = $articleToShow->first();
 
         // Retrieve the comments for this article
+
         $commentsPaginator = $comment->getArticleCommentsPaginated($articleToShow->id);
+
 
         return view('article.show', ['article' => $articleToShow, 'commentsPaginator' => $commentsPaginator]);
     }

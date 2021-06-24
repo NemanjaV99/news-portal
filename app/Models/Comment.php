@@ -47,7 +47,8 @@ class Comment extends Model
                 $this->table . '.id',
                 $this->table . '.hash_id',
                 $this->table . '.comment',
-                $this->table . '.created_at', 
+                $this->table . '.created_at',
+                'users.id AS user_id', 
                 'users.first_name AS user_fname', 
                 'users.last_name AS user_lname',
                 DB::raw('count(case when user_comment_votes.vote = 1 then 1 end) AS upvotes'),
@@ -59,10 +60,18 @@ class Comment extends Model
                 $this->table . '.hash_id',
                 $this->table . '.comment',
                 $this->table . '.created_at',
+                'users.id',
                 'users.first_name', 
                 'users.last_name')
             ->orderBy($this->table . '.created_at', 'desc')
             ->simplePaginate($perPage, ['*'], 'comments');
+
+        return $comments;
+    }
+
+    public function getUserVotedComments($userId)
+    {
+        $comments = DB::table('user_comment_votes')->where('user_id', $userId)->get();
 
         return $comments;
     }
