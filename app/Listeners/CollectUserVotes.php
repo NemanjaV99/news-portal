@@ -35,6 +35,7 @@ class CollectUserVotes
 
         $votedComments = $this->comment->getUserVotedComments($user->id);
 
+        // If user did not vote for anything yet, then we don't need to save anything, and we can just proceed to log him normally
         if ($votedComments->isNotEmpty()) {
 
             $votedComments = $votedComments->toArray();
@@ -44,6 +45,9 @@ class CollectUserVotes
             ];
 
             foreach ($votedComments as $votedComment) {
+
+                // We don't need to save the timestamps so remove them
+                unset($votedComment->created_at, $votedComment->updated_at);
 
                 $votedItems['comments'][$votedComment->comment_id] = $votedComment;
             }

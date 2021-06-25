@@ -158,6 +158,6 @@ class Comment extends Model
     {
         return DB::table('user_comment_votes')
             ->where(['user_id' => $userId, 'comment_id' => $commentId])
-            ->update(['vote' => $vote]);
+            ->update(['vote' => $vote, 'updated_at' => Carbon::now()]);
     }
 }

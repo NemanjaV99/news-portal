@@ -7,6 +7,8 @@ use App\Http\Requests\Comment\VoteCommentRequest;
 use App\Models\Comment;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use stdClass;
 
 class CommentController extends Controller
 {
@@ -58,6 +60,24 @@ class CommentController extends Controller
 
         $status = $comment->vote($voteData);
         $countedVotes = $comment->countVotes($voteData['comment_id']);
+
+        // We also need to update the user session with voted comments
+        // So every time a new vote is cast, we need to recreate/update the array in session that contains all the voted comments by user
+        $votedComments = $comment->getUserVotedComments($voteData['user_id']);
+
+        $votedComments = $votedComments->toArray();
+
+        $comments = [];
+
+        foreach ($votedComments as $votedComment) {
+
+            // We don't need to save the timestamps so remove them
+            unset($votedComment->created_at, $votedComment->updated_at);
+
+            $comments[$votedComment->comment_id] = $votedComment;
+        }
+
+        Session::put('voted_items.comments', $comments);
 
         return response(['status' => $status, 'votes' => $countedVotes->first()]);
     }

@@ -45,33 +45,43 @@
                             <div class="comment__user">Posted by {{$comment->user_fname . ' ' . $comment->user_lname}}</div>
                             <div class="comment__content">{{$comment->comment}}</div>
                             <div class="comment__posted date-format">{{$comment->created_at}}</div>
-                            @if ($comment->user_id !== Auth::user()->id)
+                            @if (Auth::check() && ( $comment->user_id !== Auth::user()->id ))
+
                                 <div class="comment__votes">
                                     <span class="comment__upvotes">
                                         @if (
-                                            array_key_exists($comment->id, Session::get('voted_items')['comments']) 
-                                            && 
-                                            Session::get('voted_items')['comments'][$comment->id]->vote === 1
+                                            Session::get('voted_items') !== null
+                                            &&
+                                                (  
+                                                    array_key_exists($comment->id, Session::get('voted_items')['comments']) 
+                                                    && 
+                                                    Session::get('voted_items')['comments'][$comment->id]->vote === 1 
+                                                )
                                             )
-                                            <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__vote-btn"></i>
+                                            <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-up comment__upvote-btn comment__vote-btn"></i>
                                         @else
-                                            <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="far fa-arrow-alt-circle-up comment__vote-btn"></i>
+                                            <i onclick="vote(this)" data-vote="1" data-comment="{{$comment->hash_id}}" class="far fa-arrow-alt-circle-up comment__upvote-btn comment__vote-btn"></i>
                                         @endif
                                         <span class="comment__vote-count">{{$comment->upvotes}}</span>
                                     </span>
                                     <span class="comment__downvotes">
                                         @if (
-                                            array_key_exists($comment->id, Session::get('voted_items')['comments']) 
-                                            && 
-                                            Session::get('voted_items')['comments'][$comment->id]->vote === 0
+                                            Session::get('voted_items') !== null
+                                            &&
+                                                (  
+                                                    array_key_exists($comment->id, Session::get('voted_items')['comments']) 
+                                                    && 
+                                                    Session::get('voted_items')['comments'][$comment->id]->vote === 0 
+                                                )
                                             )
-                                            <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__vote-btn"></i>
+                                            <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="fas fa-arrow-alt-circle-down comment__downvote-btn comment__vote-btn"></i>
                                         @else
-                                            <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="far fa-arrow-alt-circle-down comment__vote-btn"></i>
+                                            <i onclick="vote(this)" data-vote="0" data-comment="{{$comment->hash_id}}" class="far fa-arrow-alt-circle-down comment__downvote-btn comment__vote-btn"></i>
                                         @endif
                                         <span class="comment__vote-count">{{$comment->downvotes}}</span>
                                     </span>
                                 </div>
+
                             @endif
                         </div>
 
@@ -165,8 +175,33 @@
 
                 if (response.data.status) {
 
-                    document.querySelector("[data-comment='" + comment + "'][data-vote='1']").nextElementSibling.textContent = response.data.votes.upvotes;
-                    document.querySelector("[data-comment='" + comment + "'][data-vote='0']").nextElementSibling.textContent = response.data.votes.downvotes;
+                    let upvote =  document.querySelector("[data-comment='" + comment + "'][data-vote='1']");
+                    let downvote = document.querySelector("[data-comment='" + comment + "'][data-vote='0']");
+
+                    upvote.nextElementSibling.textContent = response.data.votes.upvotes;
+                    downvote.nextElementSibling.textContent = response.data.votes.downvotes;
+
+                    // Change the style of the button to show user he has voted for the comment
+                    voteBtn.classList.toggle('far');
+                    voteBtn.classList.toggle('fas');
+
+                    
+                    if (voteBtn.classList.contains('fas') && voteBtn.classList.contains('comment__upvote-btn')) {
+
+                        // If the currently pressed vote btn has already been pressed (has class .fas) and is an upvote, 
+                        // remove the .fas class from downvote button
+
+                        downvote.classList.remove('fas');
+                        downvote.classList.add('far')
+
+                    } else if (voteBtn.classList.contains('fas') && voteBtn.classList.contains('comment__downvote-btn')) {
+
+                        // If the currently pressed vote btn has already been pressed (has class .fas) and is an downvote, 
+                        // remove the .fas class from upvote button
+
+                        upvote.classList.remove('fas');
+                        upvote.classList.add('far')
+                    }
 
                 } else {
 
