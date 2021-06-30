@@ -31,6 +31,24 @@
                 {!! $article->text !!}
             </div>
 
+            @can('vote-for-article', $article)
+                <div class="article__rating rating">
+                    <div class="rating__label">
+                        Rate the article
+                    </div>
+                    <div class="rating__stars">
+                        @for ($i = 1; $i <= 5; $i++)
+                            <span onclick="rate(this)" class="rating__star" data-rating="{{$i}}">
+                                <i class="far fa-star"></i>
+                            </span>
+                        @endfor
+                    </div>
+                    <div class="rating__current">
+                        4.55
+                    </div>
+                </div>
+            @endcan
+
             <div class="article__comments">
                 <h3>Comments by readers</h3>   
                 @if(count($commentsPaginator->items()) < 1) 
@@ -45,7 +63,7 @@
                             <div class="comment__user">Posted by {{$comment->user_fname . ' ' . $comment->user_lname}}</div>
                             <div class="comment__content">{{$comment->comment}}</div>
                             <div class="comment__posted date-format">{{$comment->created_at}}</div>
-                            @if (Auth::check() && ( $comment->user_id !== Auth::user()->id ))
+                            @can('vote-for-comment', $comment)
 
                                 <div class="comment__votes">
                                     <span class="comment__upvotes">
@@ -82,7 +100,7 @@
                                     </span>
                                 </div>
 
-                            @endif
+                            @endcan
                         </div>
 
                     @endforeach
@@ -159,6 +177,7 @@
 
 @section('page-scripts')
 
+    <!-- Vote functions -->
     <script>
 
         function vote(voteBtn) {
@@ -212,6 +231,27 @@
             .catch (function (error) {
                 
                 alertify.notify('Something went wrong. Please try again.', 'error')
+            })
+        }
+
+    </script>
+
+    <!-- Rate functions -->
+    <script>
+
+        function rate(star) {
+
+            let rating = star.dataset.rating;
+            let url = window.location.href + "/rate";
+
+            axios.post(url, {
+                rating: rating,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
             })
         }
 

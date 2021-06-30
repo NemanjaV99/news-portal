@@ -23,6 +23,7 @@
 * Dropdown
 * Comment
 * Paginator
+* Rating
 *
 * PAGES...................... Components and style for elements that exist only on those pages
 * Home
@@ -576,6 +577,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+/*--------------------------------*\
+    #RATING
+\*--------------------------------*/
+.rating__label {
+
+	font-size: 14px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.rating__stars {
+
+	background-color: #fff;
+	padding: 5px 8px;
+	border-radius: 20px;
+}
+
+.rating__star {
+
+	color: rgb(255, 208, 0);
+}
+
+.rating__current {
+
+	text-align: center;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+
 /*----------*** END OF COMPONENTS ***----------------*/
 
 
@@ -712,11 +743,19 @@ h1, h2, h3, h4, h5, h6 {
 		list-style-type: decimal;
 	}
 
+	.article__rating {
+
+		float: right;
+		margin: 30px 0 15px 0;
+
+	}
+
 	.article__comments {
 
 		border-top: 1px solid rgb(0, 69, 160);
 		padding: 15px 0;
 		margin: 30px 0;
+		clear: both;
 	}
 
 		.article__comment {

@@ -54,6 +54,9 @@ Route::get('/article/create', [ArticleController::class, 'create'])
 Route::get('/article/{hash_id}', [ArticleController::class, 'show'])
     ->name('article.show');
 
+Route::post('/article/{hash_id}/rate', [ArticleController::class, 'rate'])
+    ->name('article.rate');
+
 
 // -- Comment routes -- //
 Route::post('/comment', [CommentController::class, 'store'])

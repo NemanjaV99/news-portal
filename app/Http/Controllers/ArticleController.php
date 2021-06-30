@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
+use Illuminate\Http\Request;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Models\ArticleCategory;
 use App\Models\Article;
@@ -17,6 +17,7 @@ class ArticleController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
+        $this->middleware('ajax')->only('rate');
     }
 
     /**
@@ -115,5 +116,38 @@ class ArticleController extends Controller
 
 
         return view('article.show', ['article' => $articleToShow, 'commentsPaginator' => $commentsPaginator]);
+    }
+
+     /**
+     * Process user rating of article
+     *
+     */
+    public function rate($hashId, Request $request, Article $article) 
+    {
+        $articleByHash = $article->getByHashId($hashId);
+
+        if ($articleByHash->isEmpty()) {
+
+            abort(404);
+        }
+
+        $articleByHash = $articleByHash->first();
+
+        if ( $request->has('rating') && in_array($request->get('rating'), $article->allowedRatings()) ) {
+
+            $ratingData = [
+                'user_id' => Auth::user()->id,
+                'article_id' => $articleByHash->id,
+                'rating' => $request->get('rating'),
+            ];
+
+            $status = $article->rate($ratingData);
+
+            return response(['status' => (bool)$status]);
+            
+        } 
+
+        return response(['status' => false]);
+        
     }
 }

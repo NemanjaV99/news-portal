@@ -14,6 +14,8 @@ class Article extends Model
 
     protected $table = 'articles';
 
+    private $allowedRatings = [1, 2, 3, 4, 5];
+
     public function create($article)
     {
         $insertData = [
@@ -86,5 +88,21 @@ class Article extends Model
             ->get();
 
         return $article;
+    }
+
+    public function rate($ratingData)
+    {
+        return DB::table('user_article_ratings')->upsert([
+            'user_id' => $ratingData['user_id'],
+            'article_id' => $ratingData['article_id'],
+            'rating' => $ratingData['rating'],
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ], ['user_id', 'article_id', ['rating']]);
+    }
+
+    public function allowedRatings()
+    {
+        return $this->allowedRatings;
     }
 }

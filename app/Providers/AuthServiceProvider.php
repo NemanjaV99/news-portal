@@ -29,5 +29,17 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-editor-pages', function(User $user) {
             return $user->isEditor();
         });
+        
+        Gate::define('vote-for-article', function(User $user, $article) {
+            // Only logged users, and users who are not authors can voted for the articles
+            // This would allow other editors to also vote for someones article, change that? (editors can't vote for articles?)
+            return $article->author_id !== $user->id;
+        });
+
+        Gate::define('vote-for-comment', function(User $user, $comment) {
+            // Only logged users, and users who are not authors of the comment can vote
+            return $comment->user_id !== $user->id;
+        });
+
     }
 }
