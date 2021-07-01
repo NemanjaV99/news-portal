@@ -599,7 +599,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: rgb(255, 208, 0);
 }
 
-.rating__current {
+.rating__avg {
 
 	text-align: center;
 	font-size: 14px;

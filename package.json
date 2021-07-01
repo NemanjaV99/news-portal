@@ -11,11 +11,12 @@
     },
     "devDependencies": {
         "axios": "^0.21",
-        "laravel-mix": "^6.0.19",
+        "laravel-mix": "^6.0.25",
         "lodash": "^4.17.19",
-        "postcss": "^8.1.14"
+        "postcss": "^8.3.1"
     },
     "dependencies": {
-        "alertifyjs": "^1.13.1"
+        "alertifyjs": "^1.13.1",
+        "rater-js": "^1.0.1"
     }
 }

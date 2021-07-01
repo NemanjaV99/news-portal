@@ -98,7 +98,44 @@ class Article extends Model
             'rating' => $ratingData['rating'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-        ], ['user_id', 'article_id', ['rating']]);
+        ], ['user_id', 'article_id'], ['rating']);
+    }
+
+    public function calculateAvgRating($articleId)
+    {
+        // Formula for calculating avg rating is: AR = 1 * n of 1-star ratings + 2 * n of 2sr + 3 * n of 3sr + 4 * n of 4sr + 5 * n of 5sr / total number of ratings
+        // AR - Average Rating, n of sr = number of given star rating (n of 2sr = number of 2-star ratings)
+
+        // So we need to count number of each for given article
+        $numberOfRatings = DB::table('user_article_ratings')
+            ->select(
+                DB::raw('count(case when user_article_ratings.rating = 1 then 1 end) AS star_1_ratings'),
+                DB::raw('count(case when user_article_ratings.rating = 2 then 1 end) AS star_2_ratings'),
+                DB::raw('count(case when user_article_ratings.rating = 3 then 1 end) AS star_3_ratings'),
+                DB::raw('count(case when user_article_ratings.rating = 4 then 1 end) AS star_4_ratings'),
+                DB::raw('count(case when user_article_ratings.rating = 5 then 1 end) AS star_5_ratings'),
+            )
+            ->where('article_id', $articleId)
+            ->get();
+
+        $numberOfRatings = $numberOfRatings->first();
+
+        $avgRating = (
+                        (1 * $numberOfRatings->star_1_ratings) + 
+                        (2 * $numberOfRatings->star_2_ratings) + 
+                        (3 * $numberOfRatings->star_3_ratings) + 
+                        (4 * $numberOfRatings->star_4_ratings) +
+                        (5 * $numberOfRatings->star_5_ratings)
+                     ) 
+                     / (
+                         $numberOfRatings->star_1_ratings + 
+                         $numberOfRatings->star_2_ratings + 
+                         $numberOfRatings->star_3_ratings + 
+                         $numberOfRatings->star_4_ratings + 
+                         $numberOfRatings->star_5_ratings
+                     );
+
+        return $avgRating;
     }
 
     public function allowedRatings()

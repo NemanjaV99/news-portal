@@ -143,6 +143,15 @@ class ArticleController extends Controller
 
             $status = $article->rate($ratingData);
 
+            if ($status) {
+
+                // If the rating was successfully inserted/updated, then we need to calculate the avg rating for the article
+                $rating = $article->calculateAvgRating($articleByHash->id);
+
+                return response(['status' => (bool)$status, 'avg' => $rating]);
+
+            }
+
             return response(['status' => (bool)$status]);
             
         } 

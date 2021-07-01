@@ -28,3 +28,4 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 window.alertify = require('alertifyjs');
+window.raterJs = require('rater-js');

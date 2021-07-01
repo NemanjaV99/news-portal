@@ -36,15 +36,11 @@
                     <div class="rating__label">
                         Rate the article
                     </div>
-                    <div class="rating__stars">
-                        @for ($i = 1; $i <= 5; $i++)
-                            <span onclick="rate(this)" class="rating__star" data-rating="{{$i}}">
-                                <i class="far fa-star"></i>
-                            </span>
-                        @endfor
+                    <div id="rater" class="rating__rater">
+                       
                     </div>
-                    <div class="rating__current">
-                        4.55
+                    <div class="rating__avg">
+                        0
                     </div>
                 </div>
             @endcan
@@ -239,19 +235,44 @@
     <!-- Rate functions -->
     <script>
 
-        function rate(star) {
+        let rtr = document.getElementById('rater');
 
-            let rating = star.dataset.rating;
+        if (rtr !== null) {
+
             let url = window.location.href + "/rate";
 
-            axios.post(url, {
-                rating: rating,
-            })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
+            let rater = raterJs({
+                element: rtr,
+                starSize: 20,
+                showToolTip: true,
+                disableText: 'Please wait before rating the article again.',
+                rateCallback: function (rating, done) {
+
+                    axios.post(url, {
+                        rating: rating
+                    })
+                    .then (function (response) {
+
+                        if (response.data.status) {
+
+                            let avg = response.data.avg;
+
+                            rater.setRating(avg);
+
+                            rater.disable();
+
+                            document.querySelector('.rating__avg').textContent = avg.toFixed(2);
+                        }
+
+                        done();
+                    })
+                    .catch (function (error) {
+
+                        console.log(error);
+
+                        done();
+                    })
+                }
             })
         }
 
