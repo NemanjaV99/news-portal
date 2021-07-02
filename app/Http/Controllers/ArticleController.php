@@ -17,7 +17,7 @@ class ArticleController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
-        $this->middleware('ajax')->only('rate');
+        $this->middleware(['ajax', 'throttle:4'])->only('rate');
     }
 
     /**
@@ -111,11 +111,12 @@ class ArticleController extends Controller
         $articleToShow = $articleToShow->first();
 
         // Retrieve the comments for this article
-
         $commentsPaginator = $comment->getArticleCommentsPaginated($articleToShow->id);
 
+        // Calculate the average rating for the article
+        $rating = $article->calculateAvgRating($articleToShow->id);
 
-        return view('article.show', ['article' => $articleToShow, 'commentsPaginator' => $commentsPaginator]);
+        return view('article.show', ['article' => $articleToShow, 'commentsPaginator' => $commentsPaginator, 'rating' => $rating]);
     }
 
      /**
@@ -133,6 +134,12 @@ class ArticleController extends Controller
 
         $articleByHash = $articleByHash->first();
 
+        // This should prevent editors from rating their own articles
+        // Temp, try to find a better way to prevent editors, maybe even somehow stopping them from sending requests to this route
+        if (! Gate::allows('vote-for-article', $articleByHash)) {
+            abort(401);
+        }
+
         if ( $request->has('rating') && in_array($request->get('rating'), $article->allowedRatings()) ) {
 
             $ratingData = [
@@ -141,18 +148,13 @@ class ArticleController extends Controller
                 'rating' => $request->get('rating'),
             ];
 
+            // This would be false if nothing was updated/inserted
             $status = $article->rate($ratingData);
 
-            if ($status) {
+            // Calculate the average rating for the article
+            $rating = $article->calculateAvgRating($articleByHash->id);
 
-                // If the rating was successfully inserted/updated, then we need to calculate the avg rating for the article
-                $rating = $article->calculateAvgRating($articleByHash->id);
-
-                return response(['status' => (bool)$status, 'avg' => $rating]);
-
-            }
-
-            return response(['status' => (bool)$status]);
+            return response(['status' => (bool)$status, 'avg' => $rating->avg, 'total' => $rating->total]);
             
         } 
 

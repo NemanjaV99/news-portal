@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\Comment;
+use stdClass;
 
 class Article extends Model
 {
@@ -98,13 +99,14 @@ class Article extends Model
             'rating' => $ratingData['rating'],
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-        ], ['user_id', 'article_id'], ['rating']);
+        ], ['user_id', 'article_id'], ['rating', 'updated_at']);
     }
 
     public function calculateAvgRating($articleId)
     {
         // Formula for calculating avg rating is: AR = 1 * n of 1-star ratings + 2 * n of 2sr + 3 * n of 3sr + 4 * n of 4sr + 5 * n of 5sr / total number of ratings
         // AR - Average Rating, n of sr = number of given star rating (n of 2sr = number of 2-star ratings)
+        $result = new stdClass();
 
         // So we need to count number of each for given article
         $numberOfRatings = DB::table('user_article_ratings')
@@ -118,24 +120,38 @@ class Article extends Model
             ->where('article_id', $articleId)
             ->get();
 
-        $numberOfRatings = $numberOfRatings->first();
+        // This will take the first element which is the object with results and convert it into an array
+        $numberOfRatings = json_decode(json_encode($numberOfRatings->first()), true);
 
-        $avgRating = (
-                        (1 * $numberOfRatings->star_1_ratings) + 
-                        (2 * $numberOfRatings->star_2_ratings) + 
-                        (3 * $numberOfRatings->star_3_ratings) + 
-                        (4 * $numberOfRatings->star_4_ratings) +
-                        (5 * $numberOfRatings->star_5_ratings)
-                     ) 
-                     / (
-                         $numberOfRatings->star_1_ratings + 
-                         $numberOfRatings->star_2_ratings + 
-                         $numberOfRatings->star_3_ratings + 
-                         $numberOfRatings->star_4_ratings + 
-                         $numberOfRatings->star_5_ratings
-                     );
+        $totalRatings = array_sum($numberOfRatings);
+        $result->total = $totalRatings;
 
-        return $avgRating;
+        // If the number of ratings is 0, so nobody rated the article yet, we just need to return 0
+        if ($totalRatings === 0) {
+
+            $result->avg = 0;
+
+        } else {
+
+            $avgRating = (
+                (1 * $numberOfRatings['star_1_ratings']) + 
+                (2 * $numberOfRatings['star_2_ratings']) + 
+                (3 * $numberOfRatings['star_3_ratings']) + 
+                (4 * $numberOfRatings['star_4_ratings']) +
+                (5 * $numberOfRatings['star_5_ratings'])
+             ) 
+             / (
+                 $numberOfRatings['star_1_ratings'] + 
+                 $numberOfRatings['star_2_ratings'] + 
+                 $numberOfRatings['star_3_ratings'] + 
+                 $numberOfRatings['star_4_ratings'] + 
+                 $numberOfRatings['star_5_ratings']
+             );
+
+            $result->avg = number_format($avgRating, 2);
+        }
+
+        return $result;
     }
 
     public function allowedRatings()

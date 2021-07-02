@@ -31,19 +31,17 @@
                 {!! $article->text !!}
             </div>
 
-            @can('vote-for-article', $article)
-                <div class="article__rating rating">
+            <div class="article__rating rating">
+                @can('vote-for-article', $article)
                     <div class="rating__label">
                         Rate the article
                     </div>
-                    <div id="rater" class="rating__rater">
-                       
-                    </div>
-                    <div class="rating__avg">
-                        0
-                    </div>
+                @endcan
+                <div id="rater" class="rating__rater"></div>
+                <div id="avg_rating" class="rating__avg">
+                    0
                 </div>
-            @endcan
+            </div>
 
             <div class="article__comments">
                 <h3>Comments by readers</h3>   
@@ -173,7 +171,6 @@
 
 @section('page-scripts')
 
-    <!-- Vote functions -->
     <script>
 
         function vote(voteBtn) {
@@ -232,50 +229,58 @@
 
     </script>
 
-    <!-- Rate functions -->
     <script>
 
         let rtr = document.getElementById('rater');
+        let avgRating = document.getElementById('avg_rating')
 
-        if (rtr !== null) {
+        let rater = raterJs({
+            element: rtr,
+            starSize: 20,
+            disableText: 'Please wait before rating the article again.',
+            rateCallback: (rating, done) => {
 
-            let url = window.location.href + "/rate";
+                let url = window.location.href + "/rate";
 
-            let rater = raterJs({
-                element: rtr,
-                starSize: 20,
-                showToolTip: true,
-                disableText: 'Please wait before rating the article again.',
-                rateCallback: function (rating, done) {
+                axios.post(url, {
+                    rating: rating,
+                })
+                .then (function (response) {
 
-                    axios.post(url, {
-                        rating: rating
-                    })
-                    .then (function (response) {
+                    if (response.data.status) {
 
-                        if (response.data.status) {
+                        let avg = parseFloat(response.data.avg);
+                        let total = response.data.total;
 
-                            let avg = response.data.avg;
+                        rater.setRating(avg);
 
-                            rater.setRating(avg);
+                        rater.disable();
 
-                            rater.disable();
+                        avgRating.textContent = avg + " from " + total + " rating/s.";
+                    }
 
-                            document.querySelector('.rating__avg').textContent = avg.toFixed(2);
-                        }
+                    done();
+                })
+                .catch (function (error) {
 
-                        done();
-                    })
-                    .catch (function (error) {
+                    if (error.response.status == 401) {
 
-                        console.log(error);
+                        alertify.notify('You need to be logged in to rate the article.', 'error')
 
-                        done();
-                    })
-                }
-            })
-        }
+                    } else {
+
+                        alertify.notify('Something went wrong. Please try again.', 'error')
+                    }
+
+                    done();
+                })
+            }
+        });
+
+        rater.setRating(parseFloat({{$rating->avg}}))
+
+        avgRating.textContent = parseFloat({{$rating->avg}}) + " from " + {{$rating->total}} + " rating/s.";
 
     </script>
-
+   
 @endsection

@@ -601,8 +601,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .rating__avg {
 
-	text-align: center;
-	font-size: 14px;
+	text-align: right;
+	font-size: 12px;
 	margin-top: 5px;
 }
 
