@@ -37,8 +37,15 @@ class Article extends Model
     {
         $articles = DB::table($this->table)
             ->join('users', $this->table . '.author_id', '=', 'users.id')
+            ->join('editors', $this->table . '.author_id', '=', 'editors.user_id')
             ->join('article_categories', $this->table . '.category_id', '=', 'article_categories.id')
-            ->select($this->table . '.*', 'users.first_name AS author_fname', 'users.last_name AS author_lname', 'article_categories.name AS category_name')
+            ->select(
+                $this->table . '.*', 
+                'users.first_name AS author_fname', 
+                'users.last_name AS author_lname', 
+                'article_categories.name AS category_name',
+                'editors.uuid AS editor_id'
+                )
             ->orderBy($this->table . ".created_at", 'desc')
             ->take($latestCount)
             ->get();
@@ -84,9 +91,16 @@ class Article extends Model
     {
         $article = DB::table($this->table)
             ->join('users', $this->table . '.author_id', '=', 'users.id')
+            ->join('editors', $this->table . '.author_id', '=', 'editors.user_id')
             ->join('article_categories', $this->table . '.category_id', '=', 'article_categories.id')
             ->where($this->table . ".hash_id", $hashId)
-            ->select($this->table . '.*', 'users.first_name AS author_fname', 'users.last_name AS author_lname', 'article_categories.name AS category_name')
+            ->select(
+                $this->table . '.*', 
+                'users.first_name AS author_fname', 
+                'users.last_name AS author_lname', 
+                'article_categories.name AS category_name',
+                'editors.uuid AS editor_id'
+                )
             ->get();
 
         return $article;

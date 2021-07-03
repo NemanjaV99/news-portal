@@ -25,7 +25,9 @@
                                 <div class="article-box__info">
                                     <span class="article-box__author text">
                                         <i class="fas fa-user"></i>
-                                        {{$article->author_fname . ' ' . $article->author_lname}}
+                                        <a class='link' href="{{route('editor.show', $article->editor_id)}}">
+                                            {{$article->author_fname . ' ' . $article->author_lname}}
+                                        </a>
                                     </span>
                                     <span class="article-box__time">
                                         <i class="far fa-clock"></i>

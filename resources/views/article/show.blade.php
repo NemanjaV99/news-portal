@@ -15,7 +15,9 @@
             <div class="article__info">
                 <span class="article__author">
                     <i class="fas fa-user"></i>
-                    {{$article->author_fname . " " . $article->author_lname}}
+                    <a class='link' href="{{route('editor.show', $article->editor_id)}}">
+                        {{$article->author_fname . " " . $article->author_lname}}
+                    </a>
                 </span>
                 <span class="article__category">{{$article->category_name}}</span>
                 <span class="article__posted date-format">{{$article->created_at}}</span>
