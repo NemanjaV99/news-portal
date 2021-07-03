@@ -621,45 +621,56 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 10px 0 25px 0;
 	width: 70%;
 	font-family: 'Open Sans', sans-serif;
-	padding: 15px;
 	background-color: #fff;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+	display: flex;
 }
 
-	.article-box__title {
+	.article-box__media {
 
-		font-size: 20px;
-		color: rgb(22, 107, 141);
-		margin-bottom: 50px;
+		border-radius: 10px;
+		overflow: hidden;
+		flex-basis: 30%;
 	}
 
-	.article-box__info {
-		
-		margin-top: 20px;
+		.article-box__img {
+
+			display: block;
+		}
+
+	.article-box__content {
+
+		flex-basis: 70%;
+		padding: 15px 0;
+		position: relative;
 	}
 
-		.article-box__author {
+		.article-box__title {
 
-			font-size: 14px;
-			margin-right: 15px;
+			font-size: 20px;
+			color: rgb(22, 107, 141);
+			margin-bottom: 50px;
 		}
 
-		.article-box__time {
-
-			font-size: 14px;
+		.article-box__info {
+			
+			position: absolute;
+			bottom: 15px; /* Matching the bottom padding of parent element (article-box__content) */
+			left: 0;
 		}
 
-		.article-box__more {
+			.article-box__author,
+			.article-box__time {
 
-			float: right;
-			text-decoration: none;
-			color: #fff;
-			border: 1px solid rgb(0, 69, 160);
-			background:rgb(0, 69, 160);
-			padding: 5px 10px;
-			font-size: 12px;
-		}
+				font-size: 14px;
+				margin-right: 15px;
+			}
+
+			.article-box__category {
+
+				font-size: 14px;
+			}
 		
 .no-articles {
 

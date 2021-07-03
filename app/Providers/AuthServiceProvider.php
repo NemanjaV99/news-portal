@@ -36,10 +36,5 @@ class AuthServiceProvider extends ServiceProvider
             return $article->author_id !== $user->id;
         });
 
-        Gate::define('vote-for-comment', function(User $user, $comment) {
-            // Only logged users, and users who are not authors of the comment can vote
-            return $comment->user_id !== $user->id;
-        });
-
     }
 }

@@ -37,7 +37,8 @@ class Article extends Model
     {
         $articles = DB::table($this->table)
             ->join('users', $this->table . '.author_id', '=', 'users.id')
-            ->select($this->table . '.*', 'users.first_name AS author_fname', 'users.last_name AS author_lname')
+            ->join('article_categories', $this->table . '.category_id', '=', 'article_categories.id')
+            ->select($this->table . '.*', 'users.first_name AS author_fname', 'users.last_name AS author_lname', 'article_categories.name AS category_name')
             ->orderBy($this->table . ".created_at", 'desc')
             ->take($latestCount)
             ->get();

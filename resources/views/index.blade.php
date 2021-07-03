@@ -17,16 +17,24 @@
                 @foreach($articles as $article)
 
                         <article class="article-box">
-                            <a class="link" href="{{route('article.show', $article->hash_id)}}"><h3 class="article-box__title">{{$article->title}}</h3></a>
-                            <div class="article-box__info">
-                                <span class="article-box__author text">
-                                    <i class="fas fa-user"></i>
-                                    {{$article->author_fname . ' ' . $article->author_lname}}
-                                </span>
-                                <span class="article-box__time">
-                                    <i class="far fa-clock"></i>
-                                    {{$article->time_posted}}
-                                </span>
+                            <div class="article-box__media">
+                                <img class="article-box__img" src="{{asset('storage/articles/' . $article->hash_id . '/thumbnail_small.jpg')}}" alt="{{$article->title}}">
+                            </div>
+                            <div class="article-box__content">
+                                <a class="link" href="{{route('article.show', $article->hash_id)}}"><h3 class="article-box__title">{{$article->title}}</h3></a>
+                                <div class="article-box__info">
+                                    <span class="article-box__author text">
+                                        <i class="fas fa-user"></i>
+                                        {{$article->author_fname . ' ' . $article->author_lname}}
+                                    </span>
+                                    <span class="article-box__time">
+                                        <i class="far fa-clock"></i>
+                                        {{$article->time_posted}}
+                                    </span>
+                                    <span class="article-box__category">
+                                        {{$article->category_name}}
+                                    </span>
+                                </div>
                             </div>
                         </article>
 

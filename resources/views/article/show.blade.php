@@ -57,8 +57,6 @@
                             <div class="comment__user">Posted by {{$comment->user_fname . ' ' . $comment->user_lname}}</div>
                             <div class="comment__content">{{$comment->comment}}</div>
                             <div class="comment__posted date-format">{{$comment->created_at}}</div>
-                            @can('vote-for-comment', $comment)
-
                                 <div class="comment__votes">
                                     <span class="comment__upvotes">
                                         @if (
@@ -93,8 +91,6 @@
                                         <span class="comment__vote-count">{{$comment->downvotes}}</span>
                                     </span>
                                 </div>
-
-                            @endcan
                         </div>
 
                     @endforeach
@@ -222,8 +218,17 @@
 
             })
             .catch (function (error) {
-                
-                alertify.notify('Something went wrong. Please try again.', 'error')
+
+                if (error.response.status === 429) {
+
+                    alertify.notify('Please wait before voting for a comment again.', 'error')
+
+                } else {
+
+                    alertify.notify('Something went wrong. Please try again.', 'error');
+                }
+
+                console.log(error);
             })
         }
 
@@ -265,7 +270,7 @@
 
                     if (error.response.status == 401) {
 
-                        alertify.notify('You need to be logged in to rate the article.', 'error')
+                        alertify.notify('You are not authorized to rate the article.', 'error')
 
                     } else {
 
@@ -273,6 +278,8 @@
                     }
 
                     done();
+
+                    console.log(error);
                 })
             }
         });
