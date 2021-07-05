@@ -22,7 +22,7 @@
     <div class="header__user">
         @guest
             <div class="header__auth">
-                <a class="header__link link" href="/login">Sign In</a>
+                <a class="header__link link link--light" href="/login">Sign In</a>
             </div>
         @endguest
         @auth

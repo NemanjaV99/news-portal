@@ -24,10 +24,12 @@
 * Comment
 * Paginator
 * Rating
+* Image
 *
 * PAGES...................... Components and style for elements that exist only on those pages
 * Home
-* Show Article  
+* Article
+* Editor 
 *
 */
 
@@ -210,15 +212,19 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------*\
     #LINK
 \*--------------------------------*/
-.link,
-.link:active,
-.link:hover,
-.link:visited {
+
+.link {
 
 	color: rgb(0, 0, 238);
 	text-decoration: none;
 	font-family: 'Open Sans', sans-serif;
 }
+
+.link--light {
+
+	color: rgb(255, 255, 255);
+}
+
 
 .link--button {
 
@@ -580,6 +586,7 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------*\
     #RATING
 \*--------------------------------*/
+
 .rating__label {
 
 	font-size: 14px;
@@ -606,6 +613,14 @@ h1, h2, h3, h4, h5, h6 {
 	margin-top: 5px;
 }
 
+/*--------------------------------*\
+    #IMAGE
+\*--------------------------------*/
+
+.image {
+
+	width: 100%; /* to match parent width */
+}
 
 /*----------*** END OF COMPONENTS ***----------------*/
 
@@ -688,7 +703,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 /*--------------------------------*\
-    #SHOW ARTICLE
+    #ARTICLE 
 \*--------------------------------*/
 
 .article {
@@ -796,6 +811,71 @@ h1, h2, h3, h4, h5, h6 {
 
 		width: 100%;
 		box-sizing: border-box;
+	}
+
+/*--------------------------------*\
+    #EDITOR
+\*--------------------------------*/
+
+.editor-info {
+
+	background-color: rgb(100, 100, 100);
+	margin: 0 auto;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+	width: 60%;
+	padding: 20px 15px;
+}
+
+	.editor-info__section-title {
+
+		border-bottom: 1px solid rgb(100, 100, 100);
+		padding-bottom: 5px;
+	}
+
+	.editor-info__header {
+
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		margin-bottom: 50px;
+	}
+
+		.editor-info__photo {
+
+			width: 90px;
+			height: 90px;
+			box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 0px;
+			border-radius: 100%;
+			overflow: hidden;
+		}
+
+		.editor-info__name {
+
+			border-bottom: 1px solid rgb(100, 100, 100);
+			height: 20px;
+			flex-basis: 80%;
+			text-align: right;
+			padding-bottom: 10px;
+			font-size: 24px;
+		}
+
+	.editor-info__main {
+
+		margin: 15px 0 50px;
+	}
+
+		.editor-info__bio {
+
+			padding: 5px;
+			font-size: 14px;
+		}
+
+	.editor-info__stats {
+
+		margin: 15px 0 50px;
 	}
 
 /*----------*** END OF PAGES ***----------------*/

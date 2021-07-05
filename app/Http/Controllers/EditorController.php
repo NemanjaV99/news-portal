@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Editor;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class EditorController extends Controller
         $this->middleware('auth');
     }
 
-    public function show($uuid, Editor $editor)
+    public function show($uuid, Editor $editor, Article $article)
     {
         $editorResult = $editor->getByHashId($uuid);
 
@@ -22,7 +23,8 @@ class EditorController extends Controller
         }
 
         $editorResult = $editorResult->first();
+        $numberOfArticles = $article->getTotalCountByAuthor($editorResult->id);
 
-        return view('editor.show', ['editor' => $editorResult]);
+        return view('editor.show', ['editor' => $editorResult, 'totalArticles' => $numberOfArticles]);
     }
 }

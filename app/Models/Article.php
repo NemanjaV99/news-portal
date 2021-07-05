@@ -106,6 +106,15 @@ class Article extends Model
         return $article;
     }
 
+    public function getTotalCountByAuthor($authorId) 
+    {
+        $numberOfArticles = DB::table($this->table)
+            ->where('author_id', $authorId)
+            ->count();
+
+        return $numberOfArticles;
+    }
+
     public function rate($ratingData)
     {
         return DB::table('user_article_ratings')->upsert([
@@ -167,6 +176,20 @@ class Article extends Model
         }
 
         return $result;
+    }
+
+    public function calcualteAvgRatingForAuthor($authorId)
+    {
+        $numberOfRatings = DB::table('user_article_ratings')
+        ->select(
+            DB::raw('count(case when user_article_ratings.rating = 1 then 1 end) AS star_1_ratings'),
+            DB::raw('count(case when user_article_ratings.rating = 2 then 1 end) AS star_2_ratings'),
+            DB::raw('count(case when user_article_ratings.rating = 3 then 1 end) AS star_3_ratings'),
+            DB::raw('count(case when user_article_ratings.rating = 4 then 1 end) AS star_4_ratings'),
+            DB::raw('count(case when user_article_ratings.rating = 5 then 1 end) AS star_5_ratings'),
+        )
+        ->where('article_id', $articleId)
+        ->get();
     }
 
     public function allowedRatings()
