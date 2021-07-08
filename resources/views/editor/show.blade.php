@@ -42,7 +42,7 @@
                     Number of Articles: {{$totalArticles}}
                 </div>
                 <div class="editor-info__avg-rating">
-                    Average Rating: 3.88
+                    Average Rating: {{$avgRating->avg}}
                 </div>
                 
             </div>

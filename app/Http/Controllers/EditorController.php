@@ -24,7 +24,8 @@ class EditorController extends Controller
 
         $editorResult = $editorResult->first();
         $numberOfArticles = $article->getTotalCountByAuthor($editorResult->id);
+        $avgEditorRating = $editor->calculateAvgRating($editorResult->id);
 
-        return view('editor.show', ['editor' => $editorResult, 'totalArticles' => $numberOfArticles]);
+        return view('editor.show', ['editor' => $editorResult, 'totalArticles' => $numberOfArticles, 'avgRating' => $avgEditorRating]);
     }
 }
