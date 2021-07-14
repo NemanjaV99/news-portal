@@ -20,6 +20,15 @@ class Editor extends Model
         $this->ratingCalc = new AvgRatingCalculator();
     }
 
+    public function getByUserId($id)
+    {
+        $editor = DB::table($this->table)
+            ->where($this->table . '.user_id', $id)
+            ->get();
+        
+        return $editor;
+    }
+
     public function getByHashId($uuid)
     {
         $editor = DB::table($this->table)

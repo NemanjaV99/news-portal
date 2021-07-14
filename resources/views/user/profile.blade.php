@@ -17,7 +17,9 @@
             </div>
 
             <div class="user-profile__name">
-              {{$user->fullName()}}
+              <h1>
+                {{$user->fullName()}}
+              </h1>
             </div>
 
             <div class="user-profile__joined date-format">
@@ -25,6 +27,71 @@
             </div>
 
           </div>
+
+          <div class="user-profile__update">
+
+            <h2 class="profile-card__section-title">Main info</h2>
+
+            {!! Form::open(['url' => '#', 'class' => 'form register-form']) !!}
+
+            <div class="form__group">
+                {!! Form::label('first_name', 'First Name', ['class' => 'form__label']) !!}
+                {!! Form::text('first_name', $user->first_name, ['class' => 'form__field' . ($errors->has('first_name') ? ' form__field--invalid' : null)]) !!}
+                @error('first_name')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form__group">
+                {!! Form::label('last_name', 'Last Name', ['class' => 'form__label']) !!}
+                {!! Form::text('last_name', $user->last_name, ['class' => 'form__field' . ($errors->has('last_name') ? ' form__field--invalid' : null)]) !!}
+                @error('last_name')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form__group">
+                {!! Form::submit('Update', ['class' => 'button button--blue form__submit']) !!}
+            </div>
+
+            {!! Form::close() !!}
+
+          </div>
+
+          @if($user->isEditor())
+
+            <h2 class="profile-card__section-title">Editor info</h2>
+
+            <div class="user-profile__editor">
+
+              {!! Form::open(['url' => '#', 'class' => 'form register-form']) !!}
+
+              <div class="form__group">
+                {!! Form::label('bio', "Bio", ['class' => 'form__label']) !!}
+                {!! Form::textarea('bio', $editor->bio, 
+                    [
+                        'class' => 'form__field form__field--full-width'  . ($errors->has('bio') ? ' form__field--invalid' : null), 
+                    ]) !!}    
+                @error('bio')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+              </div>
+
+              <div class="form__group">
+                  {!! Form::submit('Update', ['class' => 'button button--blue form__submit']) !!}
+              </div>
+
+              {!! Form::close() !!}
+
+            </div>
+
+          @endif
 
         </section>
 

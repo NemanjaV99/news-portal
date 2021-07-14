@@ -29,7 +29,7 @@
 
             </div>
 
-            <h2 class="editor-info__section-title">About the Editor</h2>
+            <h2 class="profile-card__section-title">About the Editor</h2>
 
             <div class="editor-info__about">
 
