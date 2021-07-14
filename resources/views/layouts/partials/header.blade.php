@@ -36,6 +36,7 @@
                     @can('access-editor-pages')
                         <a class="dropdown__item" href="{{route('article.create_form')}}">New Article</a>
                     @endcan
+                    <a class="dropdown__item" href="{{route('profile.show')}}">My Profile</a>
                     {!! Form::open(['route' => 'logout']) !!}
                         {!! Form::submit('Log Out', ['class' => 'dropdown__item dropdown__item--btn']) !!}
                     {!! Form::close() !!}

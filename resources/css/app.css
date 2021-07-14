@@ -25,11 +25,13 @@
 * Paginator
 * Rating
 * Image
+* Profile card
 *
 * PAGES...................... Components and style for elements that exist only on those pages
 * Home
 * Article
 * Editor 
+*	User Profile
 *
 */
 
@@ -622,6 +624,23 @@ h1, h2, h3, h4, h5, h6 {
 	width: 100%; /* to match parent width */
 }
 
+/*--------------------------------*\
+    #PROFILE CARD
+\*--------------------------------*/
+
+.profile-card {
+
+	background-color: rgb(100, 100, 100);
+	margin: 0 auto;
+	font-family: 'Open Sans', sans-serif;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+	width: 60%;
+	padding: 20px 15px;
+}
+
+
 /*----------*** END OF COMPONENTS ***----------------*/
 
 
@@ -817,71 +836,88 @@ h1, h2, h3, h4, h5, h6 {
     #EDITOR
 \*--------------------------------*/
 
-.editor-info {
+.editor-info__section-title {
 
-	background-color: rgb(100, 100, 100);
-	margin: 0 auto;
-	font-family: 'Open Sans', sans-serif;
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
-	width: 60%;
-	padding: 20px 15px;
+	border-bottom: 1px solid #EBEBFB;
+	padding-bottom: 5px;
 }
 
-	.editor-info__section-title {
+.editor-info__main {
 
-		border-bottom: 1px solid #EBEBFB;
-		padding-bottom: 5px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+	.editor-info__photo {
+
+		width: 90px;
+		height: 90px;
+		box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 0px;
+		border-radius: 100%;
+		overflow: hidden;
 	}
 
-	.editor-info__main {
+	.editor-info__name {
 
+		height: 20px;
+		margin-left: 15px;
+		font-size: 24px;
+	}
+
+	.editor-info__stats {
+
+		border: 1px solid #ACABAD;
+		background-color: #EBEBFB;
+		border-radius: 5px;
+		padding: 8px;
+		margin-left: auto;
+		text-align: center;
 		display: flex;
-		align-items: center;
-		margin-bottom: 50px;
+		justify-content: space-evenly;
+		flex-basis: 30%;
+		font-size: 14px;
 	}
 
-		.editor-info__photo {
+.editor-info__about {
 
-			width: 90px;
-			height: 90px;
-			box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 2px 0px;
-			border-radius: 100%;
-			overflow: hidden;
-		}
+	margin: 15px 0 50px;
+}
 
-		.editor-info__name {
+	.editor-info__bio {
 
-			height: 20px;
-			margin-left: 15px;
-			font-size: 24px;
-		}
-
-		.editor-info__stats {
-
-			border: 1px solid #ACABAD;
-			background-color: #EBEBFB;
-			border-radius: 5px;
-			padding: 8px;
-			margin-left: auto;
-			text-align: center;
-			display: flex;
-			justify-content: space-evenly;
-			flex-basis: 30%;
-			font-size: 14px;
-		}
-
-	.editor-info__about {
-
-		margin: 15px 0 50px;
+		padding: 5px;
+		font-size: 14px;
 	}
 
-		.editor-info__bio {
+/*--------------------------------*\
+    #USER PROFILE
+\*--------------------------------*/
 
-			padding: 5px;
-			font-size: 14px;
-		}
+.user-profile__avatar {
+
+	width: 120px;
+  height: 120px;
+  box-shadow: rgb(0 0 0 / 50%) 0px 0px 2px 0px;
+  border-radius: 100%;
+  overflow: hidden;
+	margin: 10px auto;
+}
+
+.user-profile__name {
+
+	text-align: center;
+	font-size: 24px;
+	margin: 15px 0;
+}
+
+.user-profile__joined {
+
+	text-align: center;
+	font-size: 14px;
+	margin-bottom: 10px;
+	
+}
 
 /*----------*** END OF PAGES ***----------------*/
 

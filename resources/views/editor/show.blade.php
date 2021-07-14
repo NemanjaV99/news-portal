@@ -8,7 +8,7 @@
 
     <main class="main">
 
-        <section class="section editor-info">
+        <section class="section profile-card editor-info">
 
             <div class="editor-info__main">
 
