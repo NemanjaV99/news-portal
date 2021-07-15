@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\UserRole;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -43,6 +45,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $table = 'users';
+
     private $roles = [
         'USER' => 1,
         'EDITOR' => 2,
@@ -71,5 +75,12 @@ class User extends Authenticatable
     public function isEditor()
     {
         return $this->role()->where('id', $this->roles['EDITOR'])->exists();
+    }
+
+    public function updateMainInfo($data)
+    {
+        return DB::table($this->table)
+            ->where(['id' => $data['id']])
+            ->update(['first_name' => $data['first_name'], 'last_name' => $data['last_name'], 'updated_at' => Carbon::now()]);
     }
 }

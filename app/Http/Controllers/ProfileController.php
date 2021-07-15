@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Profile\UpdateMainInfoRequest;
 use App\Models\Editor;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -25,5 +27,28 @@ class ProfileController extends Controller
         }
 
         return view('user.profile', $return);
+    }
+
+    public function updateMain(UpdateMainInfoRequest $request, User $user)
+    {
+        $data = $request->validated();
+        $data['id'] = Auth::user()->id;
+
+        $status = $user->updateMainInfo($data);
+
+        if ($status) {
+
+            return redirect()->back()->with('success_main', 'Successfully updated.');
+
+        } else {
+
+             // We failed to create the comment
+             return redirect()->back()->withErrors(['update_error' => 'Failed to update info. Please try again.'], 'main');
+        }
+    }
+
+    public function updateEditor()
+    {
+
     }
 }

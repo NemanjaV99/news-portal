@@ -32,7 +32,21 @@
 
             <h2 class="profile-card__section-title">Main info</h2>
 
-            {!! Form::open(['url' => '#', 'class' => 'form register-form']) !!}
+            @if(Session::has('success_main'))
+
+              <div class="success-msg">{{Session::get('success_main')}}</div>
+
+            @endif
+
+            {!! Form::open(['route' => 'profile.update_main', 'class' => 'form register-form']) !!}
+
+            @error('update_error', 'main')
+
+              <div class="form__error">
+                {{$message}}
+              </div>
+
+            @enderror
 
             <div class="form__group">
                 {!! Form::label('first_name', 'First Name', ['class' => 'form__label']) !!}

@@ -76,3 +76,9 @@ Route::get('editor/{uuid}', [EditorController::class, 'show'])
 // -- Profile routes -- //
 Route::get('/user/profile', [ProfileController::class, 'show'])
     ->name('profile.show');
+
+Route::post('/user/profile', [ProfileController::class, 'updateMain'])
+    ->name('profile.update_main');
+
+Route::post('/user/profile/editor', [ProfileController::class, 'updateEditor'])
+    ->name('profile.update_editor');
