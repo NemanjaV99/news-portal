@@ -6,6 +6,7 @@ use App\Services\AvgRatingCalculator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class Editor extends Model
 {
@@ -57,5 +58,12 @@ class Editor extends Model
         $result = $this->ratingCalc->calculate($numberOfRatings->first());
         
         return $result;
+    }
+
+    public function checkAndUpdateEditor($data)
+    {
+        return DB::table($this->table)
+            ->where(['user_id' => $data['id']])
+            ->update(['bio' => $data['bio'], 'updated_at' => Carbon::now()]);
     }
 }

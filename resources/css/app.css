@@ -26,6 +26,7 @@
 * Rating
 * Image
 * Profile card
+* Message
 *
 * PAGES...................... Components and style for elements that exist only on those pages
 * Home
@@ -644,6 +645,24 @@ h1, h2, h3, h4, h5, h6 {
 
 	border-bottom: 1px solid #EBEBFB;
 	padding: 8px 0;
+}
+
+/*--------------------------------*\
+    #PROFILE CARD
+\*--------------------------------*/
+
+.message {
+
+	text-align: center;
+	margin: 15px 0;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+
+.message--success {
+
+	background-color:rgba(0, 200, 55, 0.7);
+	color: #fff;
 }
 
 /*----------*** END OF COMPONENTS ***----------------*/

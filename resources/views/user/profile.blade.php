@@ -32,9 +32,9 @@
 
             <h2 class="profile-card__section-title">Main info</h2>
 
-            @if(Session::has('success_main'))
+            @if(Session::has('profile_updated'))
 
-              <div class="success-msg">{{Session::get('success_main')}}</div>
+              <div class="message message--success">{{Session::get('profile_updated')}}</div>
 
             @endif
 
@@ -82,7 +82,15 @@
 
             <div class="user-profile__editor">
 
-              {!! Form::open(['url' => '#', 'class' => 'form register-form']) !!}
+              {!! Form::open(['route' => 'profile.update_editor', 'class' => 'form register-form']) !!}
+
+              @error('update_error', 'editor')
+
+              <div class="form__error">
+                {{$message}}
+              </div>
+
+            @enderror
 
               <div class="form__group">
                 {!! Form::label('bio', "Bio", ['class' => 'form__label']) !!}

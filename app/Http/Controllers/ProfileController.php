@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Profile\UpdateEditorInfoRequest;
 use App\Http\Requests\Profile\UpdateMainInfoRequest;
 use App\Models\Editor;
 use App\Models\User;
@@ -36,19 +37,36 @@ class ProfileController extends Controller
 
         $status = $user->updateMainInfo($data);
 
-        if ($status) {
+        // Temp: Update should always return 1 because of the updated_at field being always updated, a row will always be affected
 
-            return redirect()->back()->with('success_main', 'Successfully updated.');
+        if ($status === 1) {
 
-        } else {
+            return redirect()->back()->with('profile_updated', 'Successfully updated.');
+
+        } else if ($status === 0) {
 
              // We failed to create the comment
-             return redirect()->back()->withErrors(['update_error' => 'Failed to update info. Please try again.'], 'main');
+             return redirect()->back()->withErrors(['update_error' => 'Nothing to update.'], 'main');
         }
     }
 
-    public function updateEditor()
+    public function updateEditor(UpdateEditorInfoRequest $request, Editor $editor)
     {
+        $data = $request->validated();
+        $data['id'] = Auth::user()->id;
 
+        $status = $editor->updateEditor($data);
+
+        // Temp: Update should always return 1 because of the updated_at field being always updated, a row will always be affected
+
+        if ($status === 1) {
+
+            return redirect()->back()->with('profile_updated', 'Successfully updated.');
+
+        } else if ($status === 0) {
+
+             // We failed to create the comment
+             return redirect()->back()->withErrors(['update_error' => 'Nothing to update.'], 'editor');
+        }
     }
 }
