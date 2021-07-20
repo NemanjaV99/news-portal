@@ -83,4 +83,11 @@ class User extends Authenticatable
             ->where(['id' => $data['id']])
             ->update(['first_name' => $data['first_name'], 'last_name' => $data['last_name'], 'updated_at' => Carbon::now()]);
     }
+
+    public function updateAvatar($data)
+    {
+        return DB::table($this->table)
+            ->where(['id' => $data['id']])
+            ->update(['avatar' => $data['avatar'], 'updated_at' => Carbon::now()]);
+    }
 }

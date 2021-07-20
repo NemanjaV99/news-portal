@@ -13,7 +13,11 @@
           <div class="user-profile__main">
 
             <div class="user-profile__avatar">
-              <img class="image" src="{{asset('assets/images/default-user.jpg')}}" alt="Default user">
+              @if (isset($user->avatar))
+                <img class="image" src="{{asset('storage/' . $user->avatar)}}" alt="User">
+              @else 
+                <img class="image" src="{{asset('assets/images/default-user.jpg')}}" alt="Default user">
+              @endif
             </div>
 
             <div class="user-profile__name">
@@ -28,9 +32,9 @@
 
           </div>
 
-          <div class="user-profile__update">
+          <div class="user__profile__avatar-update">
 
-            <h2 class="profile-card__section-title">Main info</h2>
+            <h2 class="profile-card__section-title">Avatar</h2>
 
             @if(Session::has('profile_updated'))
 
@@ -38,7 +42,40 @@
 
             @endif
 
-            {!! Form::open(['route' => 'profile.update_main', 'class' => 'form register-form']) !!}
+            {!! Form::open(['route' => 'profile.update_avatar', 'files' => true, 'class' => 'form']) !!}
+
+            @error('update_error', 'avatar')
+
+              <div class="form__error">
+                {{$message}}
+              </div>
+
+            @enderror
+
+            <div class="form__group">
+                {!! Form::label('avatar', 'Avatar', ['class' => 'form__label']) !!}
+                {!! Form::file('avatar', ['class' => 'form__field' . ($errors->has('avatar') ? ' form__field--invalid' : null)]) !!}
+                @error('avatar')
+                    <div class="form__error">
+                        {{$message}}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="form__group">
+                {!! Form::submit('Update', ['class' => 'button button--blue form__submit']) !!}
+            </div>
+
+            {!! Form::close() !!}
+
+            
+          </div>
+
+          <div class="user-profile__update">
+
+            <h2 class="profile-card__section-title">Main info</h2>
+
+            {!! Form::open(['route' => 'profile.update_main', 'class' => 'form']) !!}
 
             @error('update_error', 'main')
 

@@ -82,3 +82,6 @@ Route::post('/user/profile', [ProfileController::class, 'updateMain'])
 
 Route::post('/user/profile/editor', [ProfileController::class, 'updateEditor'])
     ->name('profile.update_editor');
+
+Route::post('/user/profile/avatar', [ProfileController::class, 'updateAvatar'])
+    ->name('profile.update_avatar');
